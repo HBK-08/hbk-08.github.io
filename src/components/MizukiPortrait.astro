@@ -1,14 +1,26 @@
-<svg class="original-portrait" viewBox="52 130 625 587" role="img" aria-label="水月撑着伞坐在水面上，脚下映着蓝色倒影">
+<svg class="original-portrait" viewBox="46 185 636 537" role="img" aria-label="水月撑伞坐在宽阔的蓝色水面上，倒影从身后延伸到前景">
   <defs>
-    <!-- Both masks use the original illustration in a 720-unit square. -->
-    <clipPath id="mizuki-ground">
-      <path d="M62 536 C63 513 83 501 114 492 C169 475 203 466 248 454
-        Q264 450 279 446 Q304 436 335 436 Q382 430 417 443
-        Q438 447 457 458 C508 468 563 472 602 490
-        Q646 504 666 539 L688 585 V720 H47 V558 Z" />
-    </clipPath>
-    <clipPath id="mizuki-character">
-      <path transform="translate(227.6560 197.3019) scale(0.4270157)" d="M70 228 Q109 171 155 109 Q170 87 182 81 Q234 65 303 45
+    <image id="mizuki-art" href="/mizuki-umbrella.png" width="720" height="720" />
+    <!-- The front edge also supplies the receding bank where scenery covered the water. -->
+    <linearGradient id="mizuki-distant-bank" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.62" stop-color="white" />
+      <stop offset="0.73" stop-color="black" />
+    </linearGradient>
+    <mask id="mizuki-rear-water" maskUnits="userSpaceOnUse" x="0" y="0" width="720" height="720">
+      <rect width="720" height="720" fill="url(#mizuki-distant-bank)" />
+    </mask>
+    <!-- Keep the figure, its reflection and the ground in the source coordinate system. -->
+    <filter id="mizuki-shore-feather" filterUnits="userSpaceOnUse" x="0" y="275" width="720" height="475">
+      <feGaussianBlur stdDeviation="7 15" />
+    </filter>
+    <mask id="mizuki-waterside" maskUnits="userSpaceOnUse" x="0" y="0" width="720" height="720">
+      <path fill="white" filter="url(#mizuki-shore-feather)"
+        d="M-32 527 C27 518 67 500 109 493
+           C146 488 173 483 205 480 C228 480 246 474 273 454
+           C308 422 378 417 417 448 C450 472 455 480 483 481
+           C513 481 529 477 560 481 C604 483 646 499 680 513
+           L752 491 V762 H-32 Z" />
+      <path fill="white" transform="translate(227.6560 197.3019) scale(0.4270157)" d="M70 228 Q109 171 155 109 Q170 87 182 81 Q234 65 303 45
         Q312 42 322 45 Q359 58 405 71 Q457 84 499 111
         Q505 135 510 163 Q514 194 527 225
         Q471 274 427 325 L421 325 Q433 334 425 342
@@ -28,11 +40,10 @@
         Q111 468 136 434 Q159 404 190 379 L199 373
         Q200 357 206 346 Q162 338 120 333 L117 339 L116 331
         Q106 285 70 228 Z" />
-    </clipPath>
-    <image id="mizuki-source" href="/mizuki-umbrella.png" width="720" height="720" />
+    </mask>
   </defs>
-  <use href="#mizuki-source" clip-path="url(#mizuki-ground)" />
-  <g transform="translate(350 455) scale(1.28) translate(-350 -455)">
-    <use href="#mizuki-source" clip-path="url(#mizuki-character)" />
+  <g mask="url(#mizuki-rear-water)" opacity=".78">
+    <use href="#mizuki-art" transform="matrix(-1 0 0 -.63 727 809)" />
   </g>
+  <use href="#mizuki-art" mask="url(#mizuki-waterside)" />
 </svg>
