@@ -21,7 +21,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 [hidden] { display: none !important; }
 .skip { position: absolute; left: 1rem; top: -6rem; z-index: 10; padding: 1rem; background: var(--sheet); }
 .skip:focus { top: 1rem; }
-.frame, .mast-inner, .hero-inner { width: min(90%, 1490px); margin-inline: auto; }
+.frame, .mast-inner { width: min(90%, 1490px); margin-inline: auto; }
 .mast { background: var(--page); border-bottom: 1px solid var(--line); }
 .mast-inner { min-height: 76px; display: flex; align-items: center; gap: 32px; }
 .wordmark { display: inline-flex; align-items: center; gap: 12px; font: 600 1.6rem var(--roman); letter-spacing: -.05em; }
@@ -41,37 +41,11 @@ body:has(#home:not([hidden])) .mast {
   background: linear-gradient(#08112299,transparent); border: 0; text-shadow: 0 1px 6px #04091b;
 }
 body:has(#home:not([hidden])) .mast-inner { border-bottom: 1px solid #eef4ff38; }
-body:has(#home:not([hidden])) :is(.mast nav, footer) { display: none; }
-body:has(#home:not([hidden])) .theme { margin-left: auto; }
+body:has(#home:not([hidden])) footer { display: none; }
 .hero {
   position: relative; isolation: isolate; background: #0c1426;
-  display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh;
+  min-height: 100vh; min-height: 100dvh;
 }
-.hero::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(0deg,#070e20e8, #0811253b 28%, transparent 56%);
-}
-.hero-inner {
-  position: relative; z-index: 1; flex: 1; display: flex; align-items: flex-end;
-  padding-block: 124px clamp(16px,3vh,34px);
-}
-.desk {
-  display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); width: min(100%, 54rem);
-  border: 1px solid #d9eaff61; border-radius: 10px; overflow: hidden;
-  background: linear-gradient(115deg,#141f34c9,#1c2943ab);
-  backdrop-filter: blur(14px); box-shadow: 0 8px 32px #030a181f;
-}
-.desk-entry {
-  display: grid; gap: 5px; align-content: center; position: relative;
-  padding: clamp(15px,2vh,24px) clamp(16px,2.4vw,36px); color: #fff;
-}
-.desk-entry + .desk-entry::before {
-  content: ""; position: absolute; left: 0; inset-block: 22%; width: 1px; background: #d9eaff48;
-}
-.desk-entry:is(:hover,:focus-visible) { background: #b9d5ff20; }
-.desk-entry:focus-visible { outline-offset: -4px; }
-.entry-name { font: 400 clamp(1.55rem,2.8vw,2.65rem)/1.08 var(--roman); letter-spacing: -.04em; }
-.entry-label { font-size: .875rem; color: #dee8f6; }
 .kicker, .reading-label { display: flex; align-items: center; gap: 13px; margin: 0; color: var(--accent); font: 600 .77rem/1.5 var(--sans); letter-spacing: .16em; }
 .kicker i { display: inline-block; width: 32px; height: 1px; background: currentColor; }
 .text-link { font-size: .94rem; border-bottom: 1px solid var(--accent); padding-block: 5px; }
@@ -107,16 +81,10 @@ footer a:first-child { font: italic 1.1rem var(--roman); }
   .mast nav { order: 3; width: 100%; margin: 0; justify-content: space-between; }
   .mast nav a { padding-block: 7px; }
   .hero { --scene-focus: 56% 50%; }
-  .hero-inner { padding-block: 130px 26px; }
-  .desk-entry { padding: 15px clamp(6px,2.7vw,20px); }
-  .entry-name { font-size: clamp(1.25rem,5.1vw,2rem); }
   .interior { padding-block: 40px; }
   .reader { grid-template-columns: 1fr; gap: 18px; }
   .reader aside { padding: 0; }
   .reader aside h2 { margin-bottom: 8px; }
   .rule-set { max-width: 90px; gap: 5px; }
   .reader article { min-height: 44vh; }
-}
-@media (max-height: 520px) and (orientation: landscape) {
-  .hero-inner { padding-block: 82px 16px; }
 }

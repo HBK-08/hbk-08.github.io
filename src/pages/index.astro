@@ -1,11 +1,6 @@
 ---
 import '../styles/rain.css';
 import MizukiScene from '../components/MizukiScene.astro';
-const sections = [
-  { id: 'courses', name: 'Courses', nav: '课程', label: '课程笔记' },
-  { id: 'research', name: 'Research', nav: '科研', label: '科研笔记' },
-  { id: 'projects', name: 'Projects', nav: '项目', label: '项目记录' }
-];
 ---
 <!doctype html>
 <html lang="zh-CN" data-theme="light">
@@ -18,11 +13,13 @@ const sections = [
 </head>
 <body>
   <a class="skip" href="#main">跳到正文</a>
-  <header class="mast">
+  <header class="mast" id="collections">
     <div class="mast-inner">
       <a href="#home" class="wordmark" aria-label="Mingye’s Website 首页"><i class="seal" aria-hidden="true"></i>Mingye’s Website</a>
       <nav aria-label="主导航">
-        {sections.map(section => <a href={`#${section.id}`}>{section.nav}</a>)}
+        <a href="#courses">课程</a>
+        <a href="#research">科研</a>
+        <a href="#projects">项目</a>
       </nav>
       <button id="theme" class="theme" type="button" aria-label="切换到深色主题" title="切换到深色主题"><span aria-hidden="true">☾</span></button>
     </div>
@@ -31,16 +28,6 @@ const sections = [
     <div id="home" class="page">
       <section class="hero" aria-label="首页">
         <MizukiScene />
-        <div class="hero-inner" id="collections">
-          <nav class="desk" aria-label="我的目录">
-            {sections.map(section =>
-              <a class="desk-entry" href={`#${section.id}`}>
-                <span class="entry-name" lang="en">{section.name}</span>
-                <span class="entry-label">{section.label}</span>
-              </a>
-            )}
-          </nav>
-        </div>
       </section>
     </div>
     <section id="directory" class="page frame interior" hidden>
