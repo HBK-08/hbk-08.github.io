@@ -70,13 +70,21 @@ body:has(#home[hidden]) .mast-inner { border-color: var(--pearl-edge); }
 .kicker, .reading-label { display: flex; align-items: center; gap: 13px; margin: 0; color: var(--accent); font: 600 .77rem/1.5 var(--sans); letter-spacing: .16em; }
 .kicker i { display: inline-block; width: 32px; height: 1px; background: currentColor; }
 .text-link { font-size: .94rem; border-bottom: 1px solid var(--accent); padding-block: 5px; }
-.panel, .reader aside, .reader article {
+.panel, .course-index, .reader aside, .reader article {
   border: 1px solid var(--pearl-edge); border-radius: 16px;
   box-shadow: inset 0 1px 2px #ffffff6b, 0 12px 40px #273c7219;
   backdrop-filter: blur(12px);
 }
 .interior { padding-block: 64px 80px; }
 .interior > h1 { font: 400 clamp(3rem,8vw,7rem)/1.12 var(--roman); letter-spacing: -.055em; margin: 18px 0 45px; }
+.course-index { max-width: 40rem; padding: clamp(20px,3vw,36px); background: var(--sea-glass); }
+.course-index h2 { margin: 0 0 14px; font: 500 1.25rem var(--song); }
+.course-index ul { list-style: none; margin: 0 0 18px; padding: 0; }
+.course-index li { border-bottom: 1px solid var(--line); }
+.course-index li a { display: block; padding: 14px 8px; border-radius: 4px; font-size: 1.1rem; line-height: 1.5; }
+.course-index li a:is(:hover,:focus-visible) { background: var(--wash); color: var(--accent); }
+.course-detail > h1 { max-width: 24em; font: 500 clamp(2rem,4.5vw,4rem)/1.35 var(--song); letter-spacing: 0; text-wrap: balance; }
+.course-detail .kicker a { text-decoration: underline; text-underline-offset: 3px; }
 .panel {
   position: relative; isolation: isolate; overflow: hidden; max-width: 30rem;
   min-height: 184px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
