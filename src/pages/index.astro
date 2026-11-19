@@ -1,6 +1,5 @@
 ---
 import '../styles/rain.css';
-import MizukiPortrait from '../components/MizukiPortrait.astro';
 ---
 <!doctype html>
 <html lang="zh-CN" data-theme="light">
@@ -33,9 +32,8 @@ import MizukiPortrait from '../components/MizukiPortrait.astro';
             <div class="actions"><a class="primary" href="#collections">Explore Notes</a><a class="text-link" href="#research">Research</a></div>
           </div>
           <figure class="portrait">
-            <MizukiPortrait />
-            <img id="mizuki" alt="本地选取的立绘">
-            <figcaption><i></i><span id="art-caption">Mizuki</span></figcaption>
+            <img id="mizuki" src="/art/mizuki-caerula-arbor.jpg" width="1919" height="1041" alt="水月手握透明伞站在岩石上，水母漂浮在深蓝色海面上方" fetchpriority="high">
+            <figcaption><i></i><span id="art-caption">Mizuki &amp; Caerula Arbor</span></figcaption>
           </figure>
         </div>
         <div class="hero-foot">
@@ -65,6 +63,6 @@ import MizukiPortrait from '../components/MizukiPortrait.astro';
       </div>
     </section>
   </main>
-  <footer class="frame"><a href="#home">Mingye’s Website</a><a href="https://wiki.biligame.com/arknights/%E6%B0%B4%E6%9C%88" target="_blank" rel="noreferrer">水月立绘 · 明日方舟</a></footer>
+  <footer class="frame"><a href="#home">Mingye’s Website</a><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2962933994" target="_blank" rel="noreferrer">壁纸场景 · Over</a></footer>
 </body>
 </html>
