@@ -9,7 +9,7 @@ const courses = new Map([
   ['courses/xi-thought', '习近平新时代中国特色社会主义思想概论']
 ]);
 const catalogs = {
-  courses: { name: 'Courses', label: '2026 秋冬学期' },
+  courses: { name: '课程目录', label: '2026 秋冬学期' },
   research: { name: 'Research', label: '科研笔记', style: 'research', empty: '研究目录', detail: '尚未添加科研笔记。' },
   projects: { name: 'Projects', label: '项目记录', style: 'project', empty: '项目目录', detail: '尚未添加项目。' }
 };
@@ -24,15 +24,13 @@ function linkTo(route, text) {
 function renderCourses() {
   const section = document.createElement('div');
   section.className = 'course-index';
-  const heading = document.createElement('h2');
-  heading.textContent = '课程目录';
   const list = document.createElement('ul');
   for (const [route, name] of courses) {
     const row = document.createElement('li');
     row.append(linkTo(route, name));
     list.append(row);
   }
-  section.append(heading, list);
+  section.append(list);
   dirContent.replaceChildren(section);
 }
 

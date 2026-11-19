@@ -3,23 +3,15 @@
   --page: #faf9fc; --sheet: #fff; --ink: #19223e; --sub: #495575; --accent: #374fa6;
   --line: #d9ddea; --wash: #deeaff; --water: #cce8f8; --violet: #e7ddfa;
   --key: #2b428c; --on-key: #fff;
-  --sea-glass: linear-gradient(115deg, #ffffffd9, #e6f8ffad 52%, #e8dcff99);
-  --pearl-edge: #ffffffb8;
-  --sky-mist: linear-gradient(100deg, #e2f2ffb0 0%, #e9f8ff19 55%, transparent 78%);
-  --nav-mist: #ebf5ffe0;
   --roman: "Baskerville","Palatino Linotype","Book Antiqua",Georgia,serif;
   --song: "Noto Serif SC","Songti SC","STSong","SimSun",serif;
   --sans: "Segoe UI","Microsoft YaHei",system-ui,sans-serif;
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --page: #131729; --sheet: #1a2137; --ink: #f2f3ff; --sub: #c4cbe5; --accent: #bbc8ff;
+  --page: #191a1f; --sheet: #22242a; --ink: #f2f3ff; --sub: #c4cbe5; --accent: #bbc8ff;
   --line: #3a405c; --wash: #273455; --water: #21415c; --violet: #383158;
   --key: #c6d3ff; --on-key: #18274c;
-  --sea-glass: linear-gradient(115deg, #18365bd6, #233c63bc 54%, #514777aa);
-  --pearl-edge: #e1e8ff66;
-  --sky-mist: linear-gradient(105deg, #0c1b3aeb, #18295294 54%, #28215355);
-  --nav-mist: #15284cdd;
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--sans); }
@@ -44,7 +36,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 .mast nav a { padding: 10px 0; color: var(--sub); font-size: 1.25rem; font-weight: 500; }
 .mast nav [aria-current] { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 8px; }
 .theme { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: transparent; font: 1.35rem Georgia,serif; }
-body:has(#home:not([hidden])) .mast, .hero {
+.mast, .hero {
   --ink: #fff; --sub: #edf0fb; --accent: #dee9ff; --line: #ffffff52;
   --key: #eef4ff; --on-key: #172037; --sheet: #16243a; color: var(--ink);
 }
@@ -58,36 +50,31 @@ body:has(#home:not([hidden])) .mast-inner { border-color: #eef4ff38; }
   position: relative; isolation: isolate; background: #0c1426;
   min-height: 100vh; min-height: 100dvh;
 }
-body:has(#home[hidden]) {
-  isolation: isolate; min-height: 100svh; background: var(--page);
+body:has(#home[hidden]) .mast {
+  background: linear-gradient(100deg, #0a1737ee, #182347cf 54%, #2e295b99),
+    #142343 url("/art/pearl-starsea.webp") center 46% / cover no-repeat;
 }
-body:has(#home[hidden])::before {
-  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  background: var(--sky-mist), url("/art/pearl-starsea.webp") 62% 52% / cover no-repeat;
-}
-body:has(#home[hidden]) .mast { background: linear-gradient(var(--nav-mist), transparent); }
-body:has(#home[hidden]) .mast-inner { border-color: var(--pearl-edge); }
 .kicker { display: flex; align-items: center; gap: 13px; margin: 0; color: var(--accent); font: 600 .77rem/1.5 var(--sans); letter-spacing: .16em; }
 .kicker i { display: inline-block; width: 32px; height: 1px; background: currentColor; }
 .panel, .course-index {
-  border: 1px solid var(--pearl-edge); border-radius: 16px;
-  box-shadow: inset 0 1px 2px #ffffff6b, 0 12px 40px #273c7219;
-  backdrop-filter: blur(12px);
+  border: 1px solid var(--line); border-radius: 12px; background: var(--sheet);
 }
 .interior { padding-block: 64px 80px; }
 .interior > h1 { font: 400 clamp(3rem,8vw,7rem)/1.12 var(--roman); letter-spacing: -.055em; margin: 18px 0 45px; }
-.course-index { max-width: 40rem; padding: clamp(20px,3vw,36px); background: var(--sea-glass); }
+.course-index { max-width: 40rem; padding: 8px clamp(14px,2vw,24px); }
+.course-detail .course-index { padding-block: 20px; }
 .course-index h2 { margin: 0 0 14px; font: 500 1.25rem var(--song); }
 .course-index ul { list-style: none; margin: 0; padding: 0; }
 .course-index li { border-bottom: 1px solid var(--line); }
+.course-index li:last-child { border-bottom: 0; }
 .course-index li a { display: block; padding: 14px 8px; border-radius: 4px; font-size: 1.1rem; line-height: 1.5; }
 .course-index li a:is(:hover,:focus-visible) { background: var(--wash); color: var(--accent); }
-.course-detail > h1 { max-width: 24em; font: 500 clamp(2rem,4.5vw,4rem)/1.35 var(--song); letter-spacing: 0; text-wrap: balance; }
+.interior:has(.course-index) > h1 { max-width: 30em; font: 500 clamp(1.5rem,2vw,1.875rem)/1.4 var(--song); letter-spacing: 0; text-wrap: balance; margin: 9px 0 22px; }
 .course-detail .kicker a { text-decoration: underline; text-underline-offset: 3px; }
 .panel {
   position: relative; isolation: isolate; overflow: hidden; max-width: 30rem;
   min-height: 184px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
-  gap: 12px; padding: clamp(24px,3vw,44px); padding-right: 5.5rem; background: var(--sea-glass);
+  gap: 12px; padding: clamp(24px,3vw,44px); padding-right: 5.5rem;
 }
 .panel .motif {
   position: absolute; right: 1.6rem; top: 1.6rem; width: 2.6rem; aspect-ratio: 1; border-radius: 50%;
