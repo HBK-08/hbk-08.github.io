@@ -21,14 +21,14 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 [hidden] { display: none !important; }
 .skip { position: absolute; left: 1rem; top: -6rem; z-index: 10; padding: 1rem; background: var(--sheet); }
 .skip:focus { top: 1rem; }
-.frame, .mast-inner, .hero-inner, .hero-foot { width: min(90%, 1490px); margin-inline: auto; }
+.frame, .mast-inner, .hero-inner { width: min(90%, 1490px); margin-inline: auto; }
 .mast { background: var(--page); border-bottom: 1px solid var(--line); }
 .mast-inner { min-height: 76px; display: flex; align-items: center; gap: 32px; }
 .wordmark { display: inline-flex; align-items: center; gap: 12px; font: 600 1.6rem var(--roman); letter-spacing: -.05em; }
 .seal { width: 20px; height: 27px; border: 1.5px solid var(--accent); border-radius: 70% 15% 65% 43%; transform: rotate(24deg); position: relative; }
 .seal::after { content: ""; position: absolute; inset: 8px 2px 3px 6px; border-left: 1.5px solid var(--accent); border-radius: 80%; }
 .mast nav { margin-left: auto; display: flex; gap: clamp(15px,2.8vw,42px); }
-.mast nav a, .hero-foot { font-size: .9rem; }
+.mast nav a { font-size: .9rem; }
 .mast nav a { padding: 10px 0; color: var(--sub); }
 .mast nav [aria-current] { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 8px; }
 .theme { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: transparent; font: 1.35rem Georgia,serif; }
@@ -74,18 +74,6 @@ body:has(#home:not([hidden])) footer { display: none; }
 .kicker, .reading-label { display: flex; align-items: center; gap: 13px; margin: 0; color: var(--accent); font: 600 .77rem/1.5 var(--sans); letter-spacing: .16em; }
 .kicker i { display: inline-block; width: 32px; height: 1px; background: currentColor; }
 .text-link { font-size: .94rem; border-bottom: 1px solid var(--accent); padding-block: 5px; }
-.hero-foot { min-height: 62px; padding-bottom: env(safe-area-inset-bottom); z-index: 1; position: relative; display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--sub); border-top: 1px solid var(--line); text-shadow: 0 1px 5px #030918; }
-.hero-foot a { display: inline-flex; align-items: center; gap: 11px; }
-.scene-tools { display: flex; align-items: center; gap: clamp(4px,1.4vw,22px); }
-.scene-tools button { border: 0; background: transparent; font-size: .87rem; padding: 10px 3px; text-shadow: inherit; }
-.scene-tools button:hover { text-decoration: underline; text-underline-offset: 4px; }
-.hero.cinema { position: fixed; inset: 0; z-index: 12; justify-content: flex-end; }
-body:has(.hero.cinema) { overflow: hidden; }
-.hero.cinema .hero-inner, .hero.cinema .hero-foot a, .hero.cinema .load-art, .hero.cinema::after { display: none; }
-.hero.cinema .hero-foot { justify-content: flex-end; border: 0; }
-.hero.cinema .scene-tools { background: #08132599; padding-inline: 12px; border-radius: 4px; }
-#art-status:empty { display: none; }
-#art-status:not(:empty) { position: absolute; right: 0; bottom: 100%; background: var(--sheet); padding: 6px 10px; }
 .panel { position: relative; isolation: isolate; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: radial-gradient(ellipse at 105% 100%,var(--tone,var(--wash)),transparent 77%),var(--sheet); }
 .research { --tone: var(--violet); }
 .project { --tone: var(--water); }
@@ -121,8 +109,6 @@ footer a:first-child { font: italic 1.1rem var(--roman); }
   .hero-inner { padding-block: 130px 26px; }
   .desk-entry { padding: 15px clamp(6px,2.7vw,20px); }
   .entry-name { font-size: clamp(1.25rem,5.1vw,2rem); }
-  .hero-foot { min-height: 52px; flex-wrap: wrap; }
-  .scene-tools { margin-left: auto; }
   .interior { padding-block: 40px; }
   .reader { grid-template-columns: 1fr; gap: 18px; }
   .reader aside { padding: 0; }
@@ -132,5 +118,4 @@ footer a:first-child { font: italic 1.1rem var(--roman); }
 }
 @media (max-height: 520px) and (orientation: landscape) {
   .hero-inner { padding-block: 82px 16px; }
-  .hero-foot { min-height: 44px; }
 }

@@ -1,7 +1,5 @@
 const directory = document.querySelector('#directory');
 const dirContent = document.querySelector('#dir-content');
-const art = document.querySelector('#mizuki');
-const chooser = document.querySelector('#file');
 const themeControl = document.querySelector('#theme');
 const catalogs = {
   courses: { name: 'Courses', label: '课程笔记', style: 'course', empty: '课程目录', detail: '尚未添加课程。' },
@@ -67,34 +65,4 @@ themeControl.addEventListener('click', () => {
   const nextTheme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
   setTheme(nextTheme);
   try { localStorage.setItem('mingye-rain-theme', nextTheme); } catch {}
-});
-
-document.querySelector('#load-art').addEventListener('click', () => chooser.click());
-let previousArtUrl;
-let selection = 0;
-chooser.addEventListener('change', async () => {
-  const file = chooser.files[0];
-  if (!file) return;
-  const currentSelection = ++selection;
-  const url = URL.createObjectURL(file);
-  const preview = new Image();
-  preview.src = url;
-  const status = document.querySelector('#art-status');
-  try {
-    await preview.decode();
-    if (currentSelection !== selection) { URL.revokeObjectURL(url); return; }
-    art.removeAttribute('srcset');
-    art.src = url;
-    art.alt = '本地选取的立绘';
-    document.querySelector('#art-caption').textContent = '';
-    art.closest('figure').querySelector('figcaption').hidden = true;
-    if (previousArtUrl) URL.revokeObjectURL(previousArtUrl);
-    previousArtUrl = url;
-    status.textContent = '';
-  } catch {
-    URL.revokeObjectURL(url);
-    if (currentSelection === selection) status.textContent = '图片无法打开，请重新选择。';
-  } finally {
-    chooser.value = '';
-  }
 });

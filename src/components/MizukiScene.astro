@@ -21,10 +21,7 @@
 <script>
   const video = document.querySelector<HTMLVideoElement>('#jellyfish')!;
   const image = document.querySelector<HTMLImageElement>('#mizuki')!;
-  const control = document.querySelector<HTMLButtonElement>('#motion-control')!;
-  const originalImage = image.src;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  let wantsMotion = !reducedMotion.matches;
   let inView = false;
   const hd = '/art/mizuki-jellyfish-hd.mp4';
   const uhd = '/art/mizuki-jellyfish-uhd.mp4';
@@ -44,24 +41,16 @@
   }
 
   function updatePlayback() {
-    const useScene = image.src === originalImage && !video.error;
-    control.hidden = !useScene;
-    if (!useScene) video.hidden = true;
-    control.textContent = wantsMotion ? '暂停动态' : '播放动态';
-    if (!useScene || !wantsMotion || !inView || document.hidden) {
+    if (video.error || reducedMotion.matches) video.hidden = true;
+    if (video.error || reducedMotion.matches || !inView || document.hidden) {
       video.pause();
       return;
     }
     selectVideo();
-    video.play().catch(error => {
-      if (error.name === 'NotAllowedError') {
-        wantsMotion = false;
-        updatePlayback();
-      }
-    });
+    video.play().catch(() => { if (video.paused) video.hidden = true; });
   }
 
-  video.addEventListener('playing', () => { video.hidden = image.src !== originalImage; });
+  video.addEventListener('playing', () => { video.hidden = reducedMotion.matches; });
   video.addEventListener('error', () => {
     if (canUseUhd && video.getAttribute('src') === uhd) {
       canUseUhd = false;
@@ -73,45 +62,9 @@
   window.addEventListener('resize', updatePlayback);
   image.addEventListener('load', updatePlayback);
   document.addEventListener('visibilitychange', updatePlayback);
-  reducedMotion.addEventListener('change', () => {
-    wantsMotion = !reducedMotion.matches;
-    updatePlayback();
-  });
-  control.addEventListener('click', () => {
-    wantsMotion = !wantsMotion;
-    updatePlayback();
-  });
+  reducedMotion.addEventListener('change', updatePlayback);
   new IntersectionObserver(([entry]) => {
     inView = entry.isIntersecting;
     updatePlayback();
   }).observe(image);
-
-  const hero = image.closest<HTMLElement>('.hero')!;
-  const cinema = document.querySelector<HTMLButtonElement>('#cinema-control')!;
-  cinema.hidden = false;
-  function setCinema(active: boolean) {
-    hero.classList.toggle('cinema', active);
-    cinema.setAttribute('aria-pressed', String(active));
-    cinema.textContent = active ? '退出全屏' : '全屏欣赏';
-  }
-  cinema.addEventListener('click', async () => {
-    if (hero.classList.contains('cinema')) {
-      setCinema(false);
-      if (document.fullscreenElement === hero) await document.exitFullscreen();
-    } else {
-      setCinema(true);
-      if (document.fullscreenEnabled) {
-        try { await hero.requestFullscreen(); } catch { /* The viewport layout also works without native fullscreen. */ }
-      }
-    }
-  });
-  document.addEventListener('fullscreenchange', () => setCinema(document.fullscreenElement === hero));
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && !document.fullscreenElement) setCinema(false);
-  });
-  window.addEventListener('hashchange', () => {
-    if (!hero.classList.contains('cinema')) return;
-    setCinema(false);
-    if (document.fullscreenElement === hero) void document.exitFullscreen();
-  });
 </script>
