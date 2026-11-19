@@ -24,7 +24,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 .skip { position: absolute; left: 1rem; top: -6rem; z-index: 10; padding: 1rem; background: var(--sheet); }
 .skip:focus { top: 1rem; }
 .frame, .mast-inner { width: min(90%, 1490px); margin-inline: auto; }
-.mast { position: relative; z-index: 3; background: linear-gradient(#081122bb,transparent); text-shadow: 0 1px 6px #04091b; }
+.mast { position: relative; z-index: 3; }
 .mast-inner { min-height: 76px; display: flex; align-items: center; gap: 32px; }
 .wordmark { display: inline-flex; align-items: center; gap: 12px; font: 600 1.6rem var(--roman); letter-spacing: -.05em; }
 .seal { width: 20px; height: 27px; border: 1.5px solid var(--accent); border-radius: 70% 15% 65% 43%; transform: rotate(24deg); position: relative; }
@@ -34,32 +34,33 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 .mast nav a { padding: 10px 0; color: var(--sub); }
 .mast nav [aria-current] { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 8px; }
 .theme { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: transparent; font: 1.35rem Georgia,serif; }
-.mast, .hero {
+body:has(#home:not([hidden])) .mast, .hero {
   --ink: #fff; --sub: #edf0fb; --accent: #dee9ff; --line: #ffffff52;
   --key: #eef4ff; --on-key: #172037; --sheet: #16243a; color: var(--ink);
 }
 body:has(#home:not([hidden])) .mast {
   position: absolute; inset: 0 0 auto;
-  background: linear-gradient(#08112299,transparent);
+  background: linear-gradient(#08112299,transparent); text-shadow: 0 1px 6px #04091b;
 }
-.mast-inner { border-bottom: 1px solid #eef4ff38; }
+.mast-inner { border-bottom: 1px solid var(--line); }
+body:has(#home:not([hidden])) .mast-inner { border-color: #eef4ff38; }
 body:has(#home:not([hidden])) footer { display: none; }
 .hero {
   position: relative; isolation: isolate; background: #0c1426;
   min-height: 100vh; min-height: 100dvh;
 }
-body:has(#home[hidden]) { isolation: isolate; background: #0d192e; }
+body:has(#home[hidden]) {
+  isolation: isolate; min-height: 100svh;
+  background:
+    radial-gradient(ellipse at 100% 14%, var(--water), transparent 58%),
+    radial-gradient(ellipse at 60% 106%, var(--violet), transparent 62%),
+    var(--page);
+}
 body:has(#home[hidden])::before {
   content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  background:
-    linear-gradient(90deg, #071226ce, transparent 63%),
-    linear-gradient(0deg, #0b1429db, transparent 40%),
-    url("/art/mizuki-caerula-hd.webp") var(--interior-focus, 50% 50%) / cover no-repeat;
+  background: repeating-radial-gradient(ellipse 76% 42% at 110% 26%, transparent 0 45px, var(--accent) 46px, transparent 47px 71px);
+  mask-image: linear-gradient(105deg, transparent 26%, #000 89%); opacity: .12;
 }
-.interior > .kicker, .interior > h1, .reader aside, footer {
-  color: #f0f5ff; text-shadow: 0 1px 5px #071022;
-}
-.interior > .kicker { color: #dceaff; }
 .kicker, .reading-label { display: flex; align-items: center; gap: 13px; margin: 0; color: var(--accent); font: 600 .77rem/1.5 var(--sans); letter-spacing: .16em; }
 .kicker i { display: inline-block; width: 32px; height: 1px; background: currentColor; }
 .text-link { font-size: .94rem; border-bottom: 1px solid var(--accent); padding-block: 5px; }
@@ -71,7 +72,7 @@ body:has(#home[hidden])::before {
 .research .motif { border: 1px solid; border-radius: 50%; box-shadow: -12px -2px 0 -1px var(--tone),-13px -2px currentColor,-25px -4px 0 -1px var(--tone),-26px -4px currentColor; }
 .project .motif { background: repeating-linear-gradient(25deg,transparent 0 20px,currentColor 21px,transparent 22px),repeating-linear-gradient(110deg,transparent 0 26px,currentColor 27px,transparent 28px); }
 .panel:hover { border-color: var(--accent); }
-footer { border-top: 1px solid #eef4ff38; display: flex; gap: 16px; justify-content: space-between; align-items: center; padding-block: 23px; font-size: .83rem; }
+footer { border-top: 1px solid var(--line); color: var(--sub); display: flex; gap: 16px; justify-content: space-between; align-items: center; padding-block: 23px; font-size: .83rem; }
 footer a:first-child { font: italic 1.1rem var(--roman); }
 .interior { padding-block: 64px 80px; min-height: calc(100svh - 145px); }
 .interior > h1 { font: 400 clamp(3rem,8vw,7rem)/1.12 var(--roman); letter-spacing: -.055em; margin: 18px 0 45px; }
@@ -80,7 +81,7 @@ footer a:first-child { font: italic 1.1rem var(--roman); }
 .panel h2 { margin: 0; font: 500 1.7rem var(--song); }
 .muted, .panel p { color: var(--sub); line-height: 1.75; margin: 0; }
 .reader { margin-top: 40px; display: grid; grid-template-columns: minmax(110px,1fr) minmax(0,4.6fr) minmax(120px,1.1fr); gap: clamp(16px,3vw,55px); }
-.reader aside { align-self: start; padding: 18px; border-radius: 6px; background: #0b192bd9; }
+.reader aside { align-self: start; padding: 18px; border-radius: 6px; background: var(--sea-glass); }
 .reader aside h2 { font: 500 1rem var(--sans); margin: 0 0 24px; }
 .reader article { background: var(--reading-glass); border-top: 2px solid var(--accent); min-height: 52vh; padding: clamp(24px,4vw,64px); }
 .reader h1 { font: 500 clamp(2rem,3vw,3.4rem) var(--song); margin: 20px 0; }
@@ -95,9 +96,7 @@ footer a:first-child { font: italic 1.1rem var(--roman); }
   .mast nav { order: 3; width: 100%; margin: 0; justify-content: space-between; }
   .mast nav a { padding-block: 7px; }
   .hero { --scene-focus: 56% 50%; }
-  body { --interior-focus: 52% 50%; }
   .interior { padding-block: 40px; }
-  #directory { padding-top: clamp(8rem, 31svh, 18rem); }
   .reader { grid-template-columns: 1fr; gap: 18px; }
   .reader aside { padding: 12px 16px; }
   .reader aside h2 { margin-bottom: 8px; }
