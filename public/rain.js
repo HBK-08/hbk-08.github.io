@@ -46,7 +46,7 @@ function navigate() {
     if (active) link.setAttribute('aria-current', route === 'reading' ? 'location' : 'page');
     else link.removeAttribute('aria-current');
   });
-  document.title = (catalog ? catalogs[route].name : home ? 'Water & Rain' : 'Reading') + ' · Mingye’s Notes';
+  document.title = (catalog ? catalogs[route].name : home ? 'Water & Rain' : 'Reading') + ' · website';
   if (route === 'collections') document.querySelector('#collections').scrollIntoView();
   else window.scrollTo(0, 0);
 }
