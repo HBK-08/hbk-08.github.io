@@ -84,11 +84,6 @@ body:has(#home[hidden]) .mast {
 #course-overview a { color: var(--accent); }
 .course-layout a:hover { text-decoration: underline; text-underline-offset: 4px; }
 #course-lessons h2 { font: 500 1.25rem var(--song); }
-@media (min-width: 761px) {
-  body:has(#course-pages:not([hidden])) .mast-inner { grid-template-rows: 48px 44px; }
-  body:has(#course-pages:not([hidden])) .mast nav { grid-area: 2 / 2; }
-  body:has(#course-pages:not([hidden])) .theme { grid-area: 1 / 3; }
-}
 .panel {
   position: relative; isolation: isolate; overflow: hidden; max-width: 30rem;
   min-height: 184px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
