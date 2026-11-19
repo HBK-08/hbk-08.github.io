@@ -3,7 +3,10 @@
   --page: #faf9fc; --sheet: #fff; --ink: #19223e; --sub: #495575; --accent: #374fa6;
   --line: #d9ddea; --wash: #deeaff; --water: #cce8f8; --violet: #e7ddfa;
   --key: #2b428c; --on-key: #fff;
-  --sea-glass: #edf4fff0; --reading-glass: #f7f9fffa;
+  --sea-glass: linear-gradient(115deg, #ffffffd9, #e6f8ffad 52%, #e8dcff99);
+  --reading-glass: #f6faffed; --pearl-edge: #ffffffb8;
+  --sky-mist: linear-gradient(100deg, #e2f2ffb0 0%, #e9f8ff19 55%, transparent 78%);
+  --nav-mist: #ebf5ffe0; --footer-mist: #e1efffd9;
   --roman: "Baskerville","Palatino Linotype","Book Antiqua",Georgia,serif;
   --song: "Noto Serif SC","Songti SC","STSong","SimSun",serif;
   --sans: "Segoe UI","Microsoft YaHei",system-ui,sans-serif;
@@ -13,7 +16,10 @@
   --page: #131729; --sheet: #1a2137; --ink: #f2f3ff; --sub: #c4cbe5; --accent: #bbc8ff;
   --line: #3a405c; --wash: #273455; --water: #21415c; --violet: #383158;
   --key: #c6d3ff; --on-key: #18274c;
-  --sea-glass: #15243be6; --reading-glass: #152033fa;
+  --sea-glass: linear-gradient(115deg, #18365bd6, #233c63bc 54%, #514777aa);
+  --reading-glass: #17283fef; --pearl-edge: #e1e8ff66;
+  --sky-mist: linear-gradient(105deg, #0c1b3aeb, #18295294 54%, #28215355);
+  --nav-mist: #15284cdd; --footer-mist: #142849dc;
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--sans); }
@@ -50,40 +56,43 @@ body:has(#home:not([hidden])) footer { display: none; }
   min-height: 100vh; min-height: 100dvh;
 }
 body:has(#home[hidden]) {
-  isolation: isolate; min-height: 100svh;
-  background:
-    radial-gradient(ellipse at 100% 14%, var(--water), transparent 58%),
-    radial-gradient(ellipse at 60% 106%, var(--violet), transparent 62%),
-    var(--page);
+  isolation: isolate; min-height: 100svh; background: var(--page);
 }
 body:has(#home[hidden])::before {
   content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  background: repeating-radial-gradient(ellipse 76% 42% at 110% 26%, transparent 0 45px, var(--accent) 46px, transparent 47px 71px);
-  mask-image: linear-gradient(105deg, transparent 26%, #000 89%); opacity: .12;
+  background: var(--sky-mist), url("/art/pearl-starsea.webp") 62% 52% / cover no-repeat;
 }
+body:has(#home[hidden]) .mast { background: linear-gradient(var(--nav-mist), transparent); }
+body:has(#home[hidden]) .mast-inner { border-color: var(--pearl-edge); }
 .kicker, .reading-label { display: flex; align-items: center; gap: 13px; margin: 0; color: var(--accent); font: 600 .77rem/1.5 var(--sans); letter-spacing: .16em; }
 .kicker i { display: inline-block; width: 32px; height: 1px; background: currentColor; }
 .text-link { font-size: .94rem; border-bottom: 1px solid var(--accent); padding-block: 5px; }
-.panel { position: relative; isolation: isolate; overflow: hidden; max-width: 29rem; border: 1px solid #dceaff55; border-radius: 8px; background: var(--sea-glass); backdrop-filter: blur(8px); }
-.research { --tone: var(--violet); }
-.project { --tone: var(--water); }
-.motif { position: absolute; width: 56%; height: 110%; right: -18%; bottom: -32%; z-index: -1; color: var(--accent); opacity: .32; transform: rotate(-19deg); }
-.course .motif { background: repeating-radial-gradient(ellipse at center, transparent 0 12%,currentColor 12.5% 13%,transparent 14% 21%); }
-.research .motif { border: 1px solid; border-radius: 50%; box-shadow: -12px -2px 0 -1px var(--tone),-13px -2px currentColor,-25px -4px 0 -1px var(--tone),-26px -4px currentColor; }
-.project .motif { background: repeating-linear-gradient(25deg,transparent 0 20px,currentColor 21px,transparent 22px),repeating-linear-gradient(110deg,transparent 0 26px,currentColor 27px,transparent 28px); }
-.panel:hover { border-color: var(--accent); }
-footer { border-top: 1px solid var(--line); color: var(--sub); display: flex; gap: 16px; justify-content: space-between; align-items: center; padding-block: 23px; font-size: .83rem; }
+.panel, .reader aside, .reader article {
+  border: 1px solid var(--pearl-edge); border-radius: 16px;
+  box-shadow: inset 0 1px 2px #ffffff6b, 0 12px 40px #273c7219;
+  backdrop-filter: blur(12px);
+}
+footer { color: var(--sub); display: flex; gap: 16px; justify-content: space-between; align-items: center; padding-block: 23px; font-size: .83rem; }
+body:has(#home[hidden]) footer { background: var(--footer-mist); width: 100%; padding-inline: max(5%, calc((100% - 1490px) / 2)); border-top: 1px solid var(--pearl-edge); }
 footer a:first-child { font: italic 1.1rem var(--roman); }
 .interior { padding-block: 64px 80px; min-height: calc(100svh - 145px); }
 .interior > h1 { font: 400 clamp(3rem,8vw,7rem)/1.12 var(--roman); letter-spacing: -.055em; margin: 18px 0 45px; }
-.panel { min-height: 195px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 16px; padding: clamp(24px,4vw,58px); }
-.panel .motif { right: 0; width: 40%; height: 160%; }
+.panel {
+  position: relative; isolation: isolate; overflow: hidden; max-width: 30rem;
+  min-height: 184px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+  gap: 12px; padding: clamp(24px,3vw,44px); padding-right: 5.5rem; background: var(--sea-glass);
+}
+.panel .motif {
+  position: absolute; right: 1.6rem; top: 1.6rem; width: 2.6rem; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle at 32% 25%, white 3%, #fff9fb 12%, #cfeafa 35%, #d4c8ed 57%, #8193bb 77%, #f5f6ff 94%);
+  box-shadow: inset -2px -2px 4px #eee8ff96, 2px 5px 12px #42467730;
+}
 .panel h2 { margin: 0; font: 500 1.7rem var(--song); }
 .muted, .panel p { color: var(--sub); line-height: 1.75; margin: 0; }
 .reader { margin-top: 40px; display: grid; grid-template-columns: minmax(110px,1fr) minmax(0,4.6fr) minmax(120px,1.1fr); gap: clamp(16px,3vw,55px); }
-.reader aside { align-self: start; padding: 18px; border-radius: 6px; background: var(--sea-glass); }
+.reader aside { align-self: start; padding: 18px; background: var(--sea-glass); }
 .reader aside h2 { font: 500 1rem var(--sans); margin: 0 0 24px; }
-.reader article { background: var(--reading-glass); border-top: 2px solid var(--accent); min-height: 52vh; padding: clamp(24px,4vw,64px); }
+.reader article { background: var(--reading-glass); min-height: 52vh; padding: clamp(24px,4vw,64px); }
 .reader h1 { font: 500 clamp(2rem,3vw,3.4rem) var(--song); margin: 20px 0; }
 .paper-lines, .rule-set { display: grid; gap: 14px; max-width: 44rem; }
 .paper-lines { margin-top: 50px; gap: 24px; }
