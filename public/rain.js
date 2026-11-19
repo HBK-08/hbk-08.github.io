@@ -83,6 +83,7 @@ chooser.addEventListener('change', async () => {
   try {
     await preview.decode();
     if (currentSelection !== selection) { URL.revokeObjectURL(url); return; }
+    art.removeAttribute('srcset');
     art.src = url;
     art.alt = '本地选取的立绘';
     document.querySelector('#art-caption').textContent = '';

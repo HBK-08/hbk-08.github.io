@@ -1,6 +1,9 @@
 <figure class="portrait">
   <div class="scene">
-    <img id="mizuki" src="/art/mizuki-caerula-arbor.jpg" width="1919" height="1041" alt="水月手握透明伞站在岩石上，水母在他身边缓缓漂动" fetchpriority="high">
+    <img id="mizuki" src="/art/mizuki-caerula-hd.webp"
+      srcset="/art/mizuki-caerula-hd.webp 1920w, /art/mizuki-caerula-detail.webp 3838w"
+      sizes="max(100vw, 184.35vh)" width="1919" height="1041"
+      alt="水月手握透明伞站在岩石上，水母在他身边缓缓漂动" fetchpriority="high">
     <video id="jellyfish" muted loop playsinline preload="none" aria-hidden="true" hidden></video>
   </div>
   <figcaption>
@@ -23,6 +26,22 @@
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   let wantsMotion = !reducedMotion.matches;
   let inView = false;
+  const hd = '/art/mizuki-jellyfish-hd.mp4';
+  const uhd = '/art/mizuki-jellyfish-uhd.mp4';
+  let canUseUhd = true;
+
+  function selectVideo() {
+    // object-fit: cover can magnify a landscape frame substantially on a narrow phone.
+    const box = image.getBoundingClientRect();
+    const pixelWidth = Math.max(box.width, box.height * 1919 / 1041) * window.devicePixelRatio;
+    const current = video.getAttribute('src');
+    const source = canUseUhd && (pixelWidth > 1920 || current === uhd) ? uhd : hd;
+    if (source === current) return;
+    const time = video.currentTime;
+    if (time > 0) video.addEventListener('loadedmetadata', () => { video.currentTime = time; }, { once: true });
+    video.hidden = true;
+    video.src = source;
+  }
 
   function updatePlayback() {
     const useScene = image.src === originalImage && !video.error;
@@ -33,7 +52,7 @@
       video.pause();
       return;
     }
-    if (!video.src) video.src = '/art/mizuki-jellyfish-loop.mp4';
+    selectVideo();
     video.play().catch(error => {
       if (error.name === 'NotAllowedError') {
         wantsMotion = false;
@@ -43,7 +62,15 @@
   }
 
   video.addEventListener('playing', () => { video.hidden = image.src !== originalImage; });
-  video.addEventListener('error', updatePlayback);
+  video.addEventListener('error', () => {
+    if (canUseUhd && video.getAttribute('src') === uhd) {
+      canUseUhd = false;
+      video.removeAttribute('src');
+      video.load();
+    }
+    updatePlayback();
+  });
+  window.addEventListener('resize', updatePlayback);
   image.addEventListener('load', updatePlayback);
   document.addEventListener('visibilitychange', updatePlayback);
   reducedMotion.addEventListener('change', () => {
