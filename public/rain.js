@@ -32,9 +32,7 @@ function renderCourses() {
     row.append(linkTo(route, name));
     list.append(row);
   }
-  const preview = linkTo('reading', '预览阅读布局');
-  preview.className = 'text-link';
-  section.append(heading, list, preview);
+  section.append(heading, list);
   dirContent.replaceChildren(section);
 }
 
@@ -74,23 +72,23 @@ function renderCatalog(id) {
 }
 
 function navigate() {
+  if (location.hash === '#reading') history.replaceState(history.state, '', '#courses');
   const route = location.hash.slice(1);
   const catalog = Object.hasOwn(catalogs, route);
   const course = courses.get(route);
-  const home = !catalog && !course && route !== 'reading';
+  const home = !catalog && !course;
   document.querySelector('#home').hidden = !home;
-  directory.hidden = !catalog && !course;
+  directory.hidden = home;
   directory.classList.toggle('course-detail', Boolean(course));
-  document.querySelector('#reading').hidden = route !== 'reading';
   if (catalog) renderCatalog(route);
   if (course) renderCourse(course);
-  const activeRoute = course || route === 'reading' ? 'courses' : route;
+  const activeRoute = course ? 'courses' : route;
   document.querySelectorAll('nav a').forEach(link => {
     const active = link.hash === '#' + activeRoute;
     if (active) link.setAttribute('aria-current', activeRoute === route ? 'page' : 'location');
     else link.removeAttribute('aria-current');
   });
-  document.title = (course || (catalog ? catalogs[route].name : home ? 'Water & Rain' : 'Reading')) + ' · Mingye’s Website';
+  document.title = (course || (catalog ? catalogs[route].name : 'Water & Rain')) + ' · Mingye’s Website';
   if (route === 'collections') document.querySelector('#collections').scrollIntoView();
   else window.scrollTo(0, 0);
 }
