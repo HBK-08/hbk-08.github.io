@@ -1,6 +1,7 @@
 ---
 import '../styles/rain.css';
 import MizukiScene from '../components/MizukiScene.astro';
+import CourseDirectory from '../components/CourseDirectory.astro';
 ---
 <!doctype html>
 <html lang="zh-CN" data-theme="light">
@@ -9,7 +10,7 @@ import MizukiScene from '../components/MizukiScene.astro';
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <title>Mingye’s Website · Water &amp; Rain</title>
-  <script is:inline src="/rain.js?v=6" defer></script>
+  <script is:inline src="/rain.js?v=7" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">跳到正文</a>
@@ -30,6 +31,7 @@ import MizukiScene from '../components/MizukiScene.astro';
         <MizukiScene />
       </section>
     </div>
+    <CourseDirectory />
     <section id="directory" class="page frame interior" hidden>
       <p class="kicker"><i></i><span id="dir-kicker"></span></p>
       <h1 id="dir-title"></h1>

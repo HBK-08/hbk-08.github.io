@@ -1,0 +1,36 @@
+---
+const groups = [
+  { name: '人工智能', courses: [
+    ['nlp', '自然语言处理'], ['cv', '计算机视觉导论'], ['ai-practice', '人工智能前沿实践']
+  ] },
+  { name: '计算机科学', courses: [['computer-network', '计算机网络']] },
+  { name: '思想政治理论', courses: [['xi-thought', '习近平新时代中国特色社会主义思想概论']] }
+];
+---
+<section class="course-layout frame" id="course-pages" aria-labelledby="course-title" hidden>
+  <aside class="course-sidebar">
+    <button id="course-menu" aria-expanded="false" aria-controls="course-tree">浏览课程</button>
+    <nav id="course-tree" aria-label="课程分类">
+      <a class="overview-link" href="#courses">课程目录</a>
+      {groups.map(group => <details>
+        <summary>{group.name}</summary>
+        <ul>{group.courses.map(([id, name]) => <li><a href={`#courses/${id}`}>{name}</a></li>)}</ul>
+      </details>)}
+    </nav>
+  </aside>
+  <div class="course-document">
+    <h1 id="course-title">课程目录</h1>
+    <p class="course-term">2026 秋冬学期</p>
+    <div id="course-overview">
+      <button id="course-fold" type="button">全部收起</button>
+      {groups.map(group => <details open>
+        <summary>{group.name}</summary>
+        <ul>{group.courses.map(([id, name]) => <li><a href={`#courses/${id}`}>{name}</a></li>)}</ul>
+      </details>)}
+    </div>
+    <div id="course-lessons" hidden>
+      <h2>讲次目录</h2>
+      <p class="muted">尚未添加讲次。</p>
+    </div>
+  </div>
+</section>
