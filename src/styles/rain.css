@@ -6,7 +6,7 @@
   --sea-glass: linear-gradient(115deg, #ffffffd9, #e6f8ffad 52%, #e8dcff99);
   --reading-glass: #f6faffed; --pearl-edge: #ffffffb8;
   --sky-mist: linear-gradient(100deg, #e2f2ffb0 0%, #e9f8ff19 55%, transparent 78%);
-  --nav-mist: #ebf5ffe0; --footer-mist: #e1efffd9;
+  --nav-mist: #ebf5ffe0;
   --roman: "Baskerville","Palatino Linotype","Book Antiqua",Georgia,serif;
   --song: "Noto Serif SC","Songti SC","STSong","SimSun",serif;
   --sans: "Segoe UI","Microsoft YaHei",system-ui,sans-serif;
@@ -19,7 +19,7 @@
   --sea-glass: linear-gradient(115deg, #18365bd6, #233c63bc 54%, #514777aa);
   --reading-glass: #17283fef; --pearl-edge: #e1e8ff66;
   --sky-mist: linear-gradient(105deg, #0c1b3aeb, #18295294 54%, #28215355);
-  --nav-mist: #15284cdd; --footer-mist: #142849dc;
+  --nav-mist: #15284cdd;
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--sans); }
@@ -50,7 +50,6 @@ body:has(#home:not([hidden])) .mast {
 }
 .mast-inner { border-bottom: 1px solid var(--line); }
 body:has(#home:not([hidden])) .mast-inner { border-color: #eef4ff38; }
-body:has(#home:not([hidden])) footer { display: none; }
 .hero {
   position: relative; isolation: isolate; background: #0c1426;
   min-height: 100vh; min-height: 100dvh;
@@ -72,10 +71,7 @@ body:has(#home[hidden]) .mast-inner { border-color: var(--pearl-edge); }
   box-shadow: inset 0 1px 2px #ffffff6b, 0 12px 40px #273c7219;
   backdrop-filter: blur(12px);
 }
-footer { color: var(--sub); display: flex; gap: 16px; justify-content: space-between; align-items: center; padding-block: 23px; font-size: .83rem; }
-body:has(#home[hidden]) footer { background: var(--footer-mist); width: 100%; padding-inline: max(5%, calc((100% - 1490px) / 2)); border-top: 1px solid var(--pearl-edge); }
-footer a:first-child { font: italic 1.1rem var(--roman); }
-.interior { padding-block: 64px 80px; min-height: calc(100svh - 145px); }
+.interior { padding-block: 64px 80px; }
 .interior > h1 { font: 400 clamp(3rem,8vw,7rem)/1.12 var(--roman); letter-spacing: -.055em; margin: 18px 0 45px; }
 .panel {
   position: relative; isolation: isolate; overflow: hidden; max-width: 30rem;
