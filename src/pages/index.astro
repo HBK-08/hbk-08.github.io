@@ -1,25 +1,9 @@
----
-import Shell from '../layouts/Shell.astro';
-import NoteList from '../components/NoteList.astro';
-import { getCollection } from 'astro:content';
-import { courses, href } from '../data/courses';
-const notes = await getCollection('notes');
-const recent = [...notes].sort((a,b)=>b.data.date.localeCompare(a.data.date));
----
-<Shell title="课程图册">
-<div class="wrap home">
-<section class="hero">
-<div class="hero-copy"><div class="eyebrow"><i></i> 本期选读 <span>/</span> 计算机视觉</div>
-<h1>图像是怎样<br/>形成的<span>？</span></h1>
-<p>从一张底片和一个小孔出发，<br class="wide"/>看三维世界如何落在二维平面上。</p>
-<a class="button" href={href('notes/image-formation/')}>阅读这篇笔记</a>
-</div>
-<figure class="hero-art"><img src={href('art/vision.webp')} width="1440" height="960" alt={courses[0].art}/><figcaption>三维曲面与投影 <span>／ Projection study</span></figcaption></figure>
-</section>
-<section id="courses" class="block"><header class="section-title"><h2>课程目录</h2><span>Course atlas</span></header>
-<div class="shelves">{courses.map(course=><a class={'course-card '+course.id} href={href('courses/'+course.id+'/')}>
-<div class="cover"><img src={href('art/'+course.id+'.webp')} alt="" width="1440" height="960" loading="lazy"/><span>{course.code}</span></div>
-<div class="card-text"><small>{course.english}</small><h3>{course.title}</h3><p>{course.desc}</p></div></a>)}</div>
-</section>
-<section class="block"><header class="section-title"><h2>近期笔记</h2><a href={href('notes/')}>浏览全部笔记</a></header><NoteList notes={recent.slice(0,5)}/></section>
-</div></Shell>
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+  </head>
+  <body></body>
+</html>
