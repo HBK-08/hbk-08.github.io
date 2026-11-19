@@ -1,0 +1,19 @@
+---
+import { href } from '../data/courses';
+import '../styles/site.css';
+interface Props { title: string; description?: string; active?: string }
+const { title, description = '明烨的课程笔记，收录计算机视觉、计算机网络和自然语言处理。', active = '' } = Astro.props;
+---
+<!doctype html><html lang="zh-CN"><head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#f6f3e9" /><meta name="description" content={description} />
+<title>{title} · 明烨手记</title>
+</head><body>
+<a class="skip" href="#content">跳到正文</a>
+<header class="mast wrap">
+<a class="brand" href={href()} aria-label="明烨手记首页"><i class="brand-mark" aria-hidden="true"></i><span>明烨手记</span></a>
+<nav aria-label="主导航"><a class:list={[{active:active==='courses'}]} href={href('#courses')}>课程目录</a><a class:list={[{active:active==='notes'}]} href={href('notes/')}>笔记索引</a><a class="search-icon" aria-label="搜索笔记" href={href('notes/#search')}><i aria-hidden="true"></i></a></nav>
+</header>
+<main id="content"><slot /></main>
+<footer class="wrap"><a href={href()}>明烨手记</a><span>课程笔记集</span><a href="#content">回到顶部 ↑</a></footer>
+</body></html>

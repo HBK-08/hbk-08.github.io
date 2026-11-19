@@ -1,0 +1,41 @@
+---
+import { getCollection, render } from 'astro:content';
+import NoteList from '../../components/NoteList.astro';
+import Shell from '../../layouts/Shell.astro';
+import { courses, href } from '../../data/courses';
+const notes = (await getCollection('notes')).sort((a,b)=>b.data.date.localeCompare(a.data.date));
+const index = (await Promise.all(notes.map(async n=>{
+  const {headings}=await render(n);
+  const blocks=(n.body || '').split(/^##\s+.+$/m).slice(1);
+  const meta=[n.data.title, courses.find(c=>c.id===n.data.course)?.title, ...n.data.topics].join(' ');
+  return headings.filter(h=>h.depth===2).map((h,i)=>({title:n.data.title,heading:h.text,url:href('notes/'+n.id+'/#'+h.slug),meta,body:blocks[i]||''}));
+}))).flat();
+---
+<Shell title="笔记索引" active="notes"><div class="wrap inner archive">
+<div class="eyebrow">Note index</div><h1>笔记索引</h1>
+<label for="search">搜索标题、概念或正文</label><input id="search" type="search" placeholder="例如：透视投影、下一跳、注意力" autocomplete="off" />
+<div id="all"><NoteList notes={notes}/></div><p id="status" role="status"></p><ul id="matches" class="matches"></ul>
+</div></Shell>
+<script type="application/json" id="note-index" set:html={JSON.stringify(index).replace(/</g,'\\u003c')}></script>
+<script>
+const input = document.querySelector<HTMLInputElement>('#search')!;
+const matches = document.querySelector('#matches')!;
+const status = document.querySelector('#status')!;
+const all = document.querySelector<HTMLElement>('#all')!;
+type Entry={title:string;heading:string;url:string;meta:string;body:string};
+const entries:Entry[]=JSON.parse(document.querySelector('#note-index')!.textContent!);
+function search(){
+  const query=input.value.trim().toLocaleLowerCase();
+  all.hidden=Boolean(query); matches.replaceChildren();
+  if(!query){status.textContent='';return;}
+  const words=query.split(/\s+/);
+  const results=entries.filter(e=>words.every(w=>[e.meta,e.heading,e.body].join(' ').toLocaleLowerCase().includes(w)));
+  status.textContent=results.length ? '找到 '+results.length+' 个相关小节' : '没有找到相关笔记，试试另一个关键词。';
+  for(const item of results){
+    const li=document.createElement('li'), a=document.createElement('a'), sub=document.createElement('small');
+    a.href=item.url; a.textContent=item.heading; sub.textContent=item.title; a.append(sub); li.append(a);matches.append(li);
+  }
+}
+input.addEventListener('input',search);
+if(location.hash==='#search') input.focus();
+</script>

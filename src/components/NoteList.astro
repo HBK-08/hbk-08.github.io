@@ -1,0 +1,11 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { courses, href } from '../data/courses';
+interface Props { notes: CollectionEntry<'notes'>[] }
+const { notes } = Astro.props;
+---
+<ul class="note-list">{notes.map(({ id, data }) => <li><a href={href('notes/' + id + '/')}>
+<span class={'tag ' + data.course}>{courses.find(c=>c.id===data.course)?.title}</span>
+<span><strong>{data.title}</strong><small>{data.lesson}</small></span>
+<time datetime={data.date}>{data.date.replaceAll('-','.')}</time>
+</a></li>)}</ul>

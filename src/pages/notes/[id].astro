@@ -1,0 +1,18 @@
+---
+import { getCollection, render } from 'astro:content';
+import Shell from '../../layouts/Shell.astro';
+import { courses, href } from '../../data/courses';
+import 'katex/dist/katex.min.css';
+export async function getStaticPaths() {
+  return (await getCollection('notes')).map(note=>({params:{id:note.id},props:{note}}));
+}
+const { note } = Astro.props;
+const { Content, headings } = await render(note);
+const { data } = note;
+const course = courses.find(c=>c.id===data.course)!;
+---
+<Shell title={data.title} description={data.description}><div class="wrap inner">
+<a class="crumb" href={href('courses/'+course.id+'/')}>课程目录 ／ {course.title}</a>
+<header class="read-head"><div><div class="eyebrow"><i></i>{data.lesson}</div><h1>{data.title}</h1><p>{data.description}</p></div><img src={href('art/'+course.id+'.webp')} alt="" width="1440" height="960"/></header>
+<div class="reading"><aside class="toc"><h2>本篇目录</h2><nav aria-label="本篇目录">{headings.filter(h=>h.depth===2).map(h=><a href={'#'+h.slug}>{h.text}</a>)}</nav></aside>
+<article class="prose"><Content/><div class="article-end"><a href={href('courses/'+course.id+'/')}>返回{course.title}目录</a></div></article></div></div></Shell>
