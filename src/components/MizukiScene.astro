@@ -4,15 +4,15 @@
     <video id="jellyfish" muted loop playsinline preload="none" aria-hidden="true" hidden></video>
   </div>
   <figcaption>
-    <button type="button" id="motion-control" aria-controls="jellyfish" hidden>播放动态</button>
-    <i></i><span id="art-caption">Mizuki &amp; Caerula Arbor</span>
+    <span id="art-caption">Mizuki &amp; Caerula Arbor</span>
   </figcaption>
 </figure>
 
 <style>
-  .scene { position: relative; }
-  video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
-  #motion-control { margin-right: auto; padding: 4px 8px; font: .85rem var(--sans); color: var(--sub); background: var(--sheet); border: 1px solid var(--line); border-radius: 4px; }
+  .portrait, .scene, .scene img, .scene video { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; }
+  .portrait { pointer-events: none; }
+  .scene img, .scene video { object-fit: cover; object-position: var(--scene-focus, 50% 50%); }
+  figcaption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 </style>
 
 <script>
@@ -58,4 +58,33 @@
     inView = entry.isIntersecting;
     updatePlayback();
   }).observe(image);
+
+  const hero = image.closest<HTMLElement>('.hero')!;
+  const cinema = document.querySelector<HTMLButtonElement>('#cinema-control')!;
+  cinema.hidden = false;
+  function setCinema(active: boolean) {
+    hero.classList.toggle('cinema', active);
+    cinema.setAttribute('aria-pressed', String(active));
+    cinema.textContent = active ? '退出全屏' : '全屏欣赏';
+  }
+  cinema.addEventListener('click', async () => {
+    if (hero.classList.contains('cinema')) {
+      setCinema(false);
+      if (document.fullscreenElement === hero) await document.exitFullscreen();
+    } else {
+      setCinema(true);
+      if (document.fullscreenEnabled) {
+        try { await hero.requestFullscreen(); } catch { /* The viewport layout also works without native fullscreen. */ }
+      }
+    }
+  });
+  document.addEventListener('fullscreenchange', () => setCinema(document.fullscreenElement === hero));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !document.fullscreenElement) setCinema(false);
+  });
+  window.addEventListener('hashchange', () => {
+    if (!hero.classList.contains('cinema')) return;
+    setCinema(false);
+    if (document.fullscreenElement === hero) void document.exitFullscreen();
+  });
 </script>
