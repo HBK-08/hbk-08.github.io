@@ -1,0 +1,61 @@
+<figure class="portrait">
+  <div class="scene">
+    <img id="mizuki" src="/art/mizuki-caerula-arbor.jpg" width="1919" height="1041" alt="水月手握透明伞站在岩石上，水母在他身边缓缓漂动" fetchpriority="high">
+    <video id="jellyfish" muted loop playsinline preload="none" aria-hidden="true" hidden></video>
+  </div>
+  <figcaption>
+    <button type="button" id="motion-control" aria-controls="jellyfish" hidden>播放动态</button>
+    <i></i><span id="art-caption">Mizuki &amp; Caerula Arbor</span>
+  </figcaption>
+</figure>
+
+<style>
+  .scene { position: relative; }
+  video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+  #motion-control { margin-right: auto; padding: 4px 8px; font: .85rem var(--sans); color: var(--sub); background: var(--sheet); border: 1px solid var(--line); border-radius: 4px; }
+</style>
+
+<script>
+  const video = document.querySelector<HTMLVideoElement>('#jellyfish')!;
+  const image = document.querySelector<HTMLImageElement>('#mizuki')!;
+  const control = document.querySelector<HTMLButtonElement>('#motion-control')!;
+  const originalImage = image.src;
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  let wantsMotion = !reducedMotion.matches;
+  let inView = false;
+
+  function updatePlayback() {
+    const useScene = image.src === originalImage && !video.error;
+    control.hidden = !useScene;
+    if (!useScene) video.hidden = true;
+    control.textContent = wantsMotion ? '暂停动态' : '播放动态';
+    if (!useScene || !wantsMotion || !inView || document.hidden) {
+      video.pause();
+      return;
+    }
+    if (!video.src) video.src = '/art/mizuki-jellyfish-loop.mp4';
+    video.play().catch(error => {
+      if (error.name === 'NotAllowedError') {
+        wantsMotion = false;
+        updatePlayback();
+      }
+    });
+  }
+
+  video.addEventListener('playing', () => { video.hidden = image.src !== originalImage; });
+  video.addEventListener('error', updatePlayback);
+  image.addEventListener('load', updatePlayback);
+  document.addEventListener('visibilitychange', updatePlayback);
+  reducedMotion.addEventListener('change', () => {
+    wantsMotion = !reducedMotion.matches;
+    updatePlayback();
+  });
+  control.addEventListener('click', () => {
+    wantsMotion = !wantsMotion;
+    updatePlayback();
+  });
+  new IntersectionObserver(([entry]) => {
+    inView = entry.isIntersecting;
+    updatePlayback();
+  }).observe(image);
+</script>
