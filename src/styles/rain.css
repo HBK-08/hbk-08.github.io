@@ -1,17 +1,19 @@
 :root {
   color-scheme: light;
-  --page: #f4f7f7; --sheet: #fcfdfb; --ink: #172e3a; --sub: #455e6b; --accent: #306b74;
-  --line: #bed0d2; --wash: #e5eff1; --sky: #d6e6eb; --water: #aec9cf; --violet: #d3d4e4;
-  --glass: #f4f7f7bb; --key: #234857; --on-key: #fff;
+  --page: #faf9fc; --sheet: #fff; --ink: #19223e; --sub: #495575; --accent: #374fa6;
+  --line: #d9ddea; --wash: #deeaff; --water: #cce8f8; --violet: #e7ddfa;
+  --sky: #abc6f7; --pearl: #fff7f2; --iris: #c3b1f1; --reflection: #86bbf0;
+  --light: #ffffffb8; --key: #2b428c; --on-key: #fff;
   --roman: "Baskerville","Palatino Linotype","Book Antiqua",Georgia,serif;
   --song: "Noto Serif SC","Songti SC","STSong","SimSun",serif;
   --sans: "Segoe UI","Microsoft YaHei",system-ui,sans-serif;
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --page: #14242e; --sheet: #1d303c; --ink: #e4efed; --sub: #b1cbd2; --accent: #a4d6d5;
-  --line: #405967; --wash: #263d48; --sky: #2a414f; --water: #3d626e; --violet: #414357;
-  --glass: #152935bb; --key: #b6dad9; --on-key: #17323d;
+  --page: #131729; --sheet: #1a2137; --ink: #f2f3ff; --sub: #c4cbe5; --accent: #bbc8ff;
+  --line: #3a405c; --wash: #273455; --water: #21415c; --violet: #383158;
+  --sky: #304775; --pearl: #201e32; --iris: #574882; --reflection: #32598a;
+  --light: #c6d6ff28; --key: #c6d3ff; --on-key: #18274c;
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--sans); }
@@ -32,12 +34,31 @@ nav a, .hero-foot { font-size: .9rem; }
 nav a { padding: 10px 0; color: var(--sub); }
 nav [aria-current] { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 8px; }
 .theme { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: transparent; font: 1.35rem Georgia,serif; }
-.hero { position: relative; isolation: isolate; overflow: hidden; background: linear-gradient(108deg,var(--page) 6%,var(--wash) 46%,var(--sky) 92%); }
+.hero {
+  position: relative; isolation: isolate; overflow: hidden;
+  background: radial-gradient(ellipse at 4% 34%,var(--pearl) 0%,transparent 59%),
+    linear-gradient(118deg,var(--page) 8%,var(--wash) 53%,var(--sky) 100%);
+}
 .hero::before, .hero::after, .mist { content: ""; position: absolute; pointer-events: none; z-index: -1; }
-.hero::before { inset: 0; background: radial-gradient(ellipse at 83% 47%,var(--violet),transparent 46%),radial-gradient(ellipse at 67% 94%,var(--water),transparent 53%); }
-.mist { inset: -80px -12%; opacity: .29; mask-image: linear-gradient(100deg,transparent 8%,black 65%); background-image: repeating-linear-gradient(107deg,transparent 0 48px,var(--sheet) 49px,transparent 50px 83px); animation: rain 15s linear infinite; }
+.hero::before {
+  inset: 0;
+  background: radial-gradient(ellipse 43% 33% at 95% 7%,var(--iris),transparent 100%),
+    radial-gradient(ellipse 38% 17% at 72% 91%,var(--reflection),transparent 100%),
+    radial-gradient(ellipse 52% 20% at 58% 104%,var(--iris),transparent 100%);
+}
+.mist {
+  inset: -80px -12%; opacity: .45;
+  mask-image: radial-gradient(ellipse at 85% 25%,black,transparent 48%);
+  background: repeating-linear-gradient(110deg,transparent 0 85px,var(--light) 86px,transparent 87px 131px);
+  animation: rain 15s linear infinite;
+}
 @keyframes rain { to { transform: translate(-26px,84px); } }
-.hero::after { inset: 73% -20% -10%; opacity: .66; transform: rotate(-4deg); background: repeating-radial-gradient(ellipse at 67% 20%,transparent 0 9%,var(--glass) 9.3% 9.6%,transparent 10% 16%); }
+.hero::after {
+  inset: 80% -6% 0 28%; opacity: .7;
+  background: radial-gradient(ellipse 48% 5% at 64% 41%,var(--light),transparent),
+    radial-gradient(ellipse 24% 3% at 38% 64%,var(--light),transparent),
+    radial-gradient(ellipse 34% 2% at 62% 76%,var(--light),transparent);
+}
 .hero-inner { position: relative; display: grid; grid-template-columns: 43% 57%; align-items: center; min-height: min(780px,calc(100svh - 130px)); }
 .hero-copy { position: relative; z-index: 2; padding-block: 36px; }
 .kicker, .reading-label { display: flex; align-items: center; gap: 13px; margin: 0; color: var(--accent); font: 600 .77rem/1.5 var(--sans); letter-spacing: .16em; }
@@ -48,11 +69,12 @@ nav [aria-current] { color: var(--ink); text-decoration: underline; text-decorat
 .signature b { margin: 0 .2em; font-weight: 400; }
 .actions { display: flex; gap: 26px; align-items: center; margin-top: 42px; }
 .primary, .text-link { font-size: .94rem; }
-.primary { display: inline-block; padding: 13px 24px; color: var(--on-key); background: var(--key); border-radius: 2px; }
+.primary { display: inline-block; padding: 13px 25px; color: var(--on-key); background: var(--key); border-radius: 6px; }
+.primary:hover { background: var(--accent); }
 .text-link { border-bottom: 1px solid var(--accent); padding-block: 5px; }
 .portrait { height: clamp(400px,calc(100svh - 155px),815px); margin: 0; padding: 9px 0; position: relative; display: grid; place-items: center; }
 .portrait img { width: 100%; height: 100%; min-height: 0; object-fit: contain; position: relative; }
-.halo { position: absolute; width: 84%; aspect-ratio: 1; border: 1px solid var(--glass); border-radius: 50%; background: radial-gradient(ellipse,var(--glass),transparent 71%); }
+.halo { position: absolute; width: 100%; aspect-ratio: 1; background: radial-gradient(ellipse closest-side,var(--light) 12%,transparent 100%); }
 .portrait figcaption { position: absolute; right: 0; bottom: 6%; display: flex; align-items: center; gap: 8px; font: italic 1rem var(--roman); color: var(--sub); }
 .hero-foot { min-height: 52px; z-index: 1; position: relative; display: flex; align-items: center; justify-content: space-between; color: var(--sub); border-top: 1px solid var(--line); }
 .hero-foot a { display: inline-flex; align-items: center; gap: 11px; }
@@ -62,7 +84,7 @@ nav [aria-current] { color: var(--ink); text-decoration: underline; text-decorat
 #art-status:empty { display: none; }
 #art-status:not(:empty) { position: absolute; right: 0; bottom: 100%; background: var(--sheet); padding: 6px 10px; }
 .collections { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; padding-block: 64px 78px; }
-.shelf, .panel { position: relative; isolation: isolate; overflow: hidden; border: 1px solid var(--line); background: linear-gradient(115deg,var(--sheet),var(--tone,var(--wash))); }
+.shelf, .panel { position: relative; isolation: isolate; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: radial-gradient(ellipse at 105% 100%,var(--tone,var(--wash)),transparent 77%),var(--sheet); }
 .shelf { display: flex; gap: 20px; align-items: flex-start; padding: 29px 22px 47px; }
 .shelf small { font: italic .95rem var(--roman); color: var(--accent); }
 .shelf h2 { margin: 15px 0 6px; font: 400 clamp(1.8rem,3vw,3.1rem)/1 var(--roman); }
