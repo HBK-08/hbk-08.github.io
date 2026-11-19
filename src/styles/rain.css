@@ -41,7 +41,8 @@ body:has(#home:not([hidden])) .mast {
   background: linear-gradient(#08112299,transparent); border: 0; text-shadow: 0 1px 6px #04091b;
 }
 body:has(#home:not([hidden])) .mast-inner { border-bottom: 1px solid #eef4ff38; }
-body:has(#home:not([hidden])) footer { display: none; }
+body:has(#home:not([hidden])) :is(.mast nav, footer) { display: none; }
+body:has(#home:not([hidden])) .theme { margin-left: auto; }
 .hero {
   position: relative; isolation: isolate; background: #0c1426;
   display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh;

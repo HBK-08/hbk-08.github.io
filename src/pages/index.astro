@@ -22,7 +22,7 @@ const sections = [
     <div class="mast-inner">
       <a href="#home" class="wordmark" aria-label="Mingye’s Website 首页"><i class="seal" aria-hidden="true"></i>Mingye’s Website</a>
       <nav aria-label="主导航">
-        <a href="#home">首页</a>{sections.map(section => <a href={`#${section.id}`}>{section.nav}</a>)}
+        {sections.map(section => <a href={`#${section.id}`}>{section.nav}</a>)}
       </nav>
       <button id="theme" class="theme" type="button" aria-label="切换到深色主题" title="切换到深色主题"><span aria-hidden="true">☾</span></button>
     </div>
