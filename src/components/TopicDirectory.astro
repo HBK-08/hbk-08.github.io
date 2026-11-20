@@ -1,0 +1,37 @@
+---
+interface Props {
+  route: string;
+  title: string;
+  menuLabel: string;
+  subtitle?: string;
+  detailTitle: string;
+  emptyText: string;
+  groups: { name: string; items: [string, string][] }[];
+}
+const { route, title, menuLabel, subtitle, detailTitle, emptyText, groups } = Astro.props;
+---
+<section class="course-layout frame" data-directory={route} aria-labelledby={`${route}-title`} hidden>
+  <aside class="course-sidebar">
+    <button class="directory-menu" aria-expanded="false" aria-controls={`${route}-tree`}>{menuLabel}</button>
+    <nav id={`${route}-tree`} aria-label={title}>
+      <a class="overview-link" href={`#${route}`}>{title}</a>
+      <ul>{groups.flatMap(group => group.items).map(([id, name]) =>
+        <li><a href={`#${route}/${id}`}>{name}</a></li>
+      )}</ul>
+    </nav>
+  </aside>
+  <div class="course-document">
+    <h1 id={`${route}-title`}>{title}</h1>
+    {subtitle && <p class="course-term">{subtitle}</p>}
+    <div class="directory-overview">
+      {groups.map(group => <details open>
+        <summary>{group.name}</summary>
+        <ul>{group.items.map(([id, name]) => <li><a href={`#${route}/${id}`}>{name}</a></li>)}</ul>
+      </details>)}
+    </div>
+    <div class="directory-detail" hidden>
+      <h2>{detailTitle}</h2>
+      <p class="muted">{emptyText}</p>
+    </div>
+  </div>
+</section>

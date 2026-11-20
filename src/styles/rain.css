@@ -80,16 +80,17 @@ body:has(#home[hidden]) .mast {
 .course-sidebar nav a[aria-current] { color: var(--link-blue); }
 .mast nav a:active, .course-sidebar nav a:active { transform: translateY(1px); }
 .course-layout summary:active { color: var(--key); }
+.course-document h1 + .directory-overview { margin-top: 20px; }
 .course-document h1 { margin: 0; font: 500 clamp(1.55rem,2vw,1.875rem)/1.4 var(--song); }
 .course-term { margin: 14px 0 24px; padding-left: 12px; border-left: 3px solid var(--line); color: var(--sub); }
-#course-menu { display: none; background: transparent; color: var(--accent); border: 1px solid var(--line); border-radius: 4px; padding: 7px 12px; font-size: .9rem; }
-#course-menu:is(:hover,:active), #course-menu[aria-expanded="true"] { color: var(--link-blue); border-color: currentColor; }
-#course-overview summary { font-weight: 600; }
-#course-overview ul { margin: 2px 0 14px; padding-left: 2.4rem; }
-#course-overview li { padding-block: 4px; line-height: 1.6; }
-#course-overview a { color: var(--ink); }
-#course-overview a:hover { color: var(--link-blue); }
-#course-lessons h2 { font: 500 1.25rem var(--song); }
+.directory-menu { display: none; background: transparent; color: var(--accent); border: 1px solid var(--line); border-radius: 4px; padding: 7px 12px; font-size: .9rem; }
+.directory-menu:is(:hover,:active), .directory-menu[aria-expanded="true"] { color: var(--link-blue); border-color: currentColor; }
+.directory-overview summary { font-weight: 600; }
+.directory-overview ul { margin: 2px 0 14px; padding-left: 2.4rem; }
+.directory-overview li { padding-block: 4px; line-height: 1.6; }
+.directory-overview a { color: var(--ink); }
+.directory-overview a:hover { color: var(--link-blue); }
+.directory-detail h2 { font: 500 1.25rem var(--song); }
 .panel {
   position: relative; isolation: isolate; overflow: hidden; max-width: 30rem;
   min-height: 184px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
@@ -107,7 +108,7 @@ body:has(#home[hidden]) .mast {
   .interior { padding-block: 40px; }
   .course-layout { grid-template-columns: minmax(0,1fr); gap: 20px; padding-top: 20px; }
   .course-sidebar { position: static; }
-  #course-menu { display: inline-block; }
-  #course-tree { padding-block: 16px 4px; }
-  #course-menu[aria-expanded="false"] + #course-tree { display: none; }
+  .directory-menu { display: inline-block; }
+  .course-sidebar nav { padding-block: 16px 4px; }
+  .directory-menu[aria-expanded="false"] + nav { display: none; }
 }

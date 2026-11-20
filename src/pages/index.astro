@@ -1,7 +1,7 @@
 ---
 import '../styles/rain.css';
 import MizukiScene from '../components/MizukiScene.astro';
-import CourseDirectory from '../components/CourseDirectory.astro';
+import TopicDirectory from '../components/TopicDirectory.astro';
 ---
 <!doctype html>
 <html lang="zh-CN" data-theme="light">
@@ -10,7 +10,7 @@ import CourseDirectory from '../components/CourseDirectory.astro';
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <title>Mingye’s Website · Water &amp; Rain</title>
-  <script is:inline src="/rain.js?v=8" defer></script>
+  <script is:inline src="/rain.js?v=9" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">跳到正文</a>
@@ -31,7 +31,21 @@ import CourseDirectory from '../components/CourseDirectory.astro';
         <MizukiScene />
       </section>
     </div>
-    <CourseDirectory />
+    <TopicDirectory route="courses" title="课程目录" menuLabel="浏览课程" subtitle="2026 秋冬学期"
+      detailTitle="讲次目录" emptyText="尚未添加讲次。" groups={[
+        { name: '人工智能', items: [['nlp', '自然语言处理'], ['cv', '计算机视觉导论'], ['ai-practice', '人工智能前沿实践']] },
+        { name: '计算机科学', items: [['computer-network', '计算机网络']] },
+        { name: '思想政治理论', items: [['xi-thought', '习近平新时代中国特色社会主义思想概论']] }
+      ]} />
+    <TopicDirectory route="research" title="科研目录" menuLabel="浏览研究方向"
+      detailTitle="研究笔记" emptyText="尚未添加研究笔记。" groups={[
+        { name: '研究方向', items: [
+          ['interpretability-by-cognitive-skills', 'Interpretability by Cognitive Skills'],
+          ['vlm', 'VLM'], ['rsi', 'RSI'],
+          ['agent-behavior-reverse-engineering', 'Agent Behavior Reverse Engineering'],
+          ['seed-stem-retrosynthesis', 'seed-stem-retrosynthesis']
+        ] }
+      ]} />
     <section id="directory" class="page frame interior" hidden>
       <p class="kicker"><i></i><span id="dir-kicker"></span></p>
       <h1 id="dir-title"></h1>
