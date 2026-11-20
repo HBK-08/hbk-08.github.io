@@ -1,5 +1,6 @@
 ---
 import { Content as Survey } from '../notes/vlm-survey.md';
+import { Content as Todo } from '../notes/vlm-todo.md';
 const topics = [
   {
     slug: 'latent-thinking-interpretability', name: 'Latent Thinking Interpretability',
@@ -46,6 +47,7 @@ const topics = [
       <p>{topic.question}</p>
     </li>)}
   </ul>
+  <section class="vlm-todo"><Todo /></section>
 </div>
 <article data-topic-body="research/vlm/survey" hidden>
   <a class="vlm-back" href="#research/vlm">返回 VLM</a>
@@ -69,6 +71,9 @@ const topics = [
   .vlm-directions a { font-weight: 600; }
   .vlm-directions p { color: var(--sub); margin: .2rem 0 0; }
   .vlm-back { color: var(--link-blue); font-size: .9rem; }
+  .vlm-todo :global(h2) { margin: 1.5rem 0 .35rem; font-size: 1.16rem; }
+  .vlm-todo :global(p) { margin: 0; color: var(--sub); }
+  .vlm-todo :global(ol) { margin: .55rem 0 0; padding-inline-start: 1.5rem; }
   article li a { color: var(--accent); }
   .survey-text :global(table) { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: .92rem; }
   .survey-text :global(th), .survey-text :global(td) { padding: .45rem .65rem; border: 1px solid var(--line); min-width: 6em; vertical-align: top; text-align: left; }
