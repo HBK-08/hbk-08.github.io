@@ -7,8 +7,9 @@ interface Props {
   detailTitle: string;
   emptyText: string;
   groups: { name: string; items: [string, string][] }[];
+  subtopics?: Record<string, { slug: string; name: string }[]>;
 }
-const { route, title, menuLabel, subtitle, detailTitle, emptyText, groups } = Astro.props;
+const { route, title, menuLabel, subtitle, detailTitle, emptyText, groups, subtopics = {} } = Astro.props;
 ---
 <section class="course-layout frame" data-directory={route} aria-labelledby={`${route}-title`} hidden>
   <aside class="course-sidebar">
@@ -16,7 +17,12 @@ const { route, title, menuLabel, subtitle, detailTitle, emptyText, groups } = As
     <nav id={`${route}-tree`} aria-label={title}>
       <a class="overview-link" href={`#${route}`}>{title}</a>
       <ul>{groups.flatMap(group => group.items).map(([id, name]) =>
-        <li><a href={`#${route}/${id}`}>{name}</a></li>
+        <li>
+          <a href={`#${route}/${id}`}>{name}</a>
+          {subtopics[id] && <ul>
+            {subtopics[id].map(topic => <li><a href={`#${route}/${id}/${topic.slug}`}>{topic.name}</a></li>)}
+          </ul>}
+        </li>
       )}</ul>
     </nav>
   </aside>

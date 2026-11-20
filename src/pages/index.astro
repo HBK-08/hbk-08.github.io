@@ -2,7 +2,7 @@
 import '../styles/rain.css';
 import MizukiScene from '../components/MizukiScene.astro';
 import TopicDirectory from '../components/TopicDirectory.astro';
-import VlmTopics from '../components/VlmTopics.astro';
+import VlmTopics, { topics as vlmTopics } from '../components/VlmTopics.astro';
 ---
 <!doctype html>
 <html lang="zh-CN" data-theme="light">
@@ -11,7 +11,7 @@ import VlmTopics from '../components/VlmTopics.astro';
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <title>Mingye’s Website · Water &amp; Rain</title>
-  <script is:inline src="/rain.js?v=10" defer></script>
+  <script is:inline src="/rain.js?v=11" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">跳到正文</a>
@@ -38,7 +38,7 @@ import VlmTopics from '../components/VlmTopics.astro';
         { name: '计算机科学', items: [['computer-network', '计算机网络']] },
         { name: '思想政治理论', items: [['xi-thought', '习近平新时代中国特色社会主义思想概论']] }
       ]} />
-    <TopicDirectory route="research" title="科研目录" menuLabel="浏览研究方向"
+    <TopicDirectory route="research" title="科研目录" menuLabel="浏览研究方向" subtopics={{ vlm: vlmTopics }}
       detailTitle="研究笔记" emptyText="尚未添加研究笔记。" groups={[
         { name: '研究方向', items: [
           ['interpretability-by-cognitive-skills', 'Interpretability by Cognitive Skills'],

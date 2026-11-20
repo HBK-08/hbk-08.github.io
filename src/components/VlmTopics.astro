@@ -1,7 +1,7 @@
 ---
 import { Content as Survey } from '../notes/vlm-survey.md';
 import { Content as Todo } from '../notes/vlm-todo.md';
-const topics = [
+export const topics = [
   {
     slug: 'latent-thinking-interpretability', name: 'Latent Thinking Interpretability',
     question: '模型在回答之前生成的连续向量里，保留了哪些视觉信息？',
@@ -50,11 +50,9 @@ const topics = [
   <section class="vlm-todo"><Todo /></section>
 </div>
 <article data-topic-body="research/vlm/survey" hidden>
-  <a class="vlm-back" href="#research/vlm">返回 VLM</a>
   <div class="survey-text"><Survey /></div>
 </article>
 {topics.map(topic => <article data-topic-body={`research/vlm/${topic.slug}`} hidden>
-  <a class="vlm-back" href="#research/vlm">返回 VLM</a>
   <p>{topic.question}</p>
   <p>{topic.note}</p>
   <h2>相关论文</h2>
@@ -70,7 +68,6 @@ const topics = [
   .vlm-directions li { padding: .65rem 0; border-bottom: 1px solid var(--line); }
   .vlm-directions a { font-weight: 600; }
   .vlm-directions p { color: var(--sub); margin: .2rem 0 0; }
-  .vlm-back { color: var(--link-blue); font-size: .9rem; }
   .vlm-todo :global(h2) { margin: 1.5rem 0 .35rem; font-size: 1.16rem; }
   .vlm-todo :global(p) { margin: 0; color: var(--sub); }
   .vlm-todo :global(ol) { margin: .55rem 0 0; padding-inline-start: 1.5rem; }

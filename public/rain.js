@@ -4,7 +4,8 @@ const themeControl = document.querySelector('#theme');
 const topicPages = document.querySelectorAll('[data-directory]');
 const topicLinks = new Map();
 for (const page of topicPages) {
-  for (const link of page.querySelectorAll('nav a, [data-topic-link]')) topicLinks.set(link.hash, link);
+  for (const link of page.querySelectorAll('[data-topic-link]')) topicLinks.set(link.hash, link);
+  for (const link of page.querySelectorAll('nav a')) topicLinks.set(link.hash, link);
   const menu = page.querySelector('.directory-menu');
   menu.addEventListener('click', () => {
     menu.setAttribute('aria-expanded', String(menu.getAttribute('aria-expanded') !== 'true'));

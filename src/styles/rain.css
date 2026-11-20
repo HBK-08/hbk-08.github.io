@@ -75,6 +75,7 @@ body:has(#home[hidden]) .mast {
 .course-layout summary { cursor: pointer; padding-block: 6px; }
 .course-layout summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .course-sidebar ul { list-style: none; margin: 0; padding: 0; }
+.course-sidebar li > ul { margin-inline-start: 1rem; padding-inline-start: .35rem; border-inline-start: 1px solid var(--line); font-size: .9375rem; }
 .course-sidebar nav a { display: block; padding: 5px 10px; border-radius: 4px; line-height: 1.55; }
 .course-sidebar nav a:hover, .course-layout summary:hover { color: var(--accent); }
 .course-sidebar nav a[aria-current] { color: var(--link-blue); }
