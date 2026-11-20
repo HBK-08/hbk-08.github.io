@@ -3,6 +3,7 @@
   --page: #faf9fc; --sheet: #fff; --ink: #19223e; --sub: #495575; --accent: #374fa6;
   --line: #d9ddea; --wash: #deeaff; --water: #cce8f8; --violet: #e7ddfa;
   --key: #2b428c; --on-key: #fff;
+  --link-blue: #1657c8;
   --roman: "Baskerville","Palatino Linotype","Book Antiqua",Georgia,serif;
   --song: "Noto Serif SC","Songti SC","STSong","SimSun",serif;
   --sans: "Segoe UI","Microsoft YaHei",system-ui,sans-serif;
@@ -12,6 +13,7 @@
   --page: #191a1f; --sheet: #22242a; --ink: #f2f3ff; --sub: #c4cbe5; --accent: #bbc8ff;
   --line: #3a405c; --wash: #273455; --water: #21415c; --violet: #383158;
   --key: #c6d3ff; --on-key: #18274c;
+  --link-blue: #83baff;
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--sans); }
@@ -35,8 +37,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 .seal::after { content: ""; position: absolute; inset: 8px 2px 3px 6px; border-left: 1.5px solid var(--accent); border-radius: 80%; }
 .mast nav { grid-area: nav; justify-self: start; display: flex; gap: clamp(6px,1.2vw,16px); margin-inline-start: -9px; }
 .mast nav a { padding: 7px 9px; border-radius: 5px; color: var(--sub); font-size: .9375rem; line-height: 1.4; }
-.mast nav a:hover { background: #dbe7ff2e; color: #fff; }
-.mast nav a[aria-current] { background: #c9d3ff; color: #182447; text-shadow: none; }
+.mast nav a:hover { color: #c8e4ff; }
+.mast nav a[aria-current] { color: #80c4ff; }
 .mast nav a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 .theme { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: transparent; font: 1.35rem Georgia,serif; }
 .mast, .hero {
@@ -68,29 +70,28 @@ body:has(#home[hidden]) .mast {
   display: grid; grid-template-columns: clamp(12rem,16vw,16rem) minmax(0,48rem);
   gap: clamp(32px,4.5vw,80px); align-items: start; padding-block: clamp(36px,4vw,68px) 72px;
 }
-.course-sidebar { position: sticky; top: 24px; color: var(--sub); }
+.course-sidebar { position: sticky; top: 24px; color: var(--ink); }
 .course-sidebar nav > a { display: block; margin-bottom: 12px; font-weight: 600; }
 .course-layout summary { cursor: pointer; padding-block: 6px; }
 .course-layout summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .course-sidebar summary { font-size: 1rem; }
 .course-sidebar ul { list-style: none; margin: 2px 0 8px; padding-left: 16px; border-left: 1px solid var(--line); }
 .course-sidebar nav a { display: block; padding: 5px 10px; border-radius: 4px; line-height: 1.55; }
-.course-sidebar nav a:hover, .course-layout summary:hover { background: var(--wash); }
-.course-sidebar nav a[aria-current] { color: var(--on-key); background: var(--key); font-weight: 600; }
-.course-layout details[open] > summary { color: var(--accent); }
+.course-sidebar nav a:hover, .course-layout summary:hover { color: var(--accent); }
+.course-sidebar nav a[aria-current] { color: var(--link-blue); }
 .mast nav a:active, .course-sidebar nav a:active { transform: translateY(1px); }
 .course-layout summary:active { color: var(--key); }
 .course-document h1 { margin: 0; font: 500 clamp(1.55rem,2vw,1.875rem)/1.4 var(--song); }
 .course-term { margin: 14px 0 24px; padding-left: 12px; border-left: 3px solid var(--line); color: var(--sub); }
 #course-fold, #course-menu { background: transparent; color: var(--accent); border: 1px solid var(--line); border-radius: 4px; padding: 7px 12px; font-size: .9rem; }
-:is(#course-fold,#course-menu):is(:hover,:active), #course-menu[aria-expanded="true"] { background: var(--wash); color: var(--key); }
+:is(#course-fold,#course-menu):is(:hover,:active), #course-menu[aria-expanded="true"] { color: var(--link-blue); border-color: currentColor; }
 #course-menu { display: none; }
 #course-fold { margin-bottom: 14px; }
 #course-overview summary { font-weight: 600; }
 #course-overview ul { margin: 2px 0 14px; padding-left: 2.4rem; }
 #course-overview li { padding-block: 4px; line-height: 1.6; }
-#course-overview a { color: var(--accent); }
-#course-overview a:hover { background: var(--wash); }
+#course-overview a { color: var(--ink); }
+#course-overview a:hover { color: var(--link-blue); }
 #course-lessons h2 { font: 500 1.25rem var(--song); }
 .panel {
   position: relative; isolation: isolate; overflow: hidden; max-width: 30rem;
