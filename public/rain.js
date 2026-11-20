@@ -4,7 +4,7 @@ const themeControl = document.querySelector('#theme');
 const topicPages = document.querySelectorAll('[data-directory]');
 const topicLinks = new Map();
 for (const page of topicPages) {
-  for (const link of page.querySelectorAll('nav a')) topicLinks.set(link.hash, link);
+  for (const link of page.querySelectorAll('nav a, [data-topic-link]')) topicLinks.set(link.hash, link);
   const menu = page.querySelector('.directory-menu');
   menu.addEventListener('click', () => {
     menu.setAttribute('aria-expanded', String(menu.getAttribute('aria-expanded') !== 'true'));
@@ -16,11 +16,19 @@ const catalogs = {
 
 function renderTopicPage(page, link) {
   const overview = link.classList.contains('overview-link');
+  const route = link.hash.slice(1);
+  let hasContent = false;
+  for (const body of page.querySelectorAll('[data-topic-body]')) {
+    body.hidden = body.dataset.topicBody !== route;
+    if (!body.hidden) hasContent = true;
+  }
   page.querySelector('h1').textContent = link.textContent;
   page.querySelector('.directory-overview').hidden = !overview;
-  page.querySelector('.directory-detail').hidden = overview;
+  page.querySelector('.directory-detail').hidden = overview || hasContent;
   page.querySelector('nav [aria-current]')?.removeAttribute('aria-current');
-  link.setAttribute('aria-current', 'page');
+  const parent = link.closest('[data-topic-body]');
+  const sidebarLink = parent ? topicLinks.get('#' + parent.dataset.topicBody) : link;
+  sidebarLink.setAttribute('aria-current', parent ? 'location' : 'page');
   page.querySelector('.directory-menu').setAttribute('aria-expanded', 'false');
 }
 

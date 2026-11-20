@@ -1,0 +1,67 @@
+---
+const topics = [
+  {
+    slug: 'latent-thinking-interpretability', name: 'Latent Thinking Interpretability',
+    question: '模型在回答之前生成的连续向量里，保留了哪些视觉信息？',
+    note: '可以把同一道题的中间向量换成另一张图产生的向量，再观察答案是否跟着改变。另一组对照保留推理段的起止标记，只替换中间内容。比较这两种干预，有助于区分向量里能读出的信息，以及模型作答时实际用到的信息。',
+    papers: [
+      ['Imagination Helps Visual Reasoning, But Not Yet in Latent Space', 'https://proceedings.mlr.press/v306/li26r.html'],
+      ['Beyond Visual Memory: Mechanistic Diagnostics of Latent Visual Reasoning', 'https://aclanthology.org/2026.emnlp-main.284/'],
+      ['Visual Latents Know More Than They Say: Unsilencing Latent Reasoning in MLLMs', 'https://arxiv.org/abs/2605.02735']
+    ]
+  },
+  {
+    slug: 'in-context-learning', name: 'In-Context Learning',
+    question: '给模型几组图像和答案，它能从示例里读出规则，再用到新图上吗？',
+    note: '例如，同一批图像可以按颜色分类，也可以按形状分类。固定待判断的图像，只改变示例采用的分类标准，就能观察模型是否随上下文调整答案。接下来还可以追问，示例中的哪些视觉证据被传到了新问题，以及当示例与训练中学到的习惯冲突时，模型会跟随哪一方。',
+    papers: [
+      ['Why Multimodal In-Context Learning Lags Behind? Unveiling the Inner Mechanisms and Bottlenecks', 'https://arxiv.org/abs/2604.13403'],
+      ['Dissecting Multimodal In-Context Learning: Modality Asymmetries and Circuit Dynamics in modern Transformers', 'https://arxiv.org/abs/2601.20796'],
+      ['Multimodal Function Vectors for Visual Relations', 'https://arxiv.org/abs/2510.02528'],
+      ['Criterion-Conditional In-Context Learning: Evaluating Criterion-Shift Adaptation in Vision-Language Models', 'https://arxiv.org/abs/2607.02575'],
+      ['In-Context Learning Can Help Vision-Language Models Overcome Training Priors', 'https://arxiv.org/abs/2610.12942'],
+      ['Visual Grounding First, Multimodal In-context Learning Follows', 'https://arxiv.org/abs/2610.30592']
+    ]
+  },
+  {
+    slug: 'compositionality', name: 'Compositionality',
+    question: '模型分别学会的视觉技能，能否串起来解决一个新问题？',
+    note: '以一道几何题为例：先让模型在图中找到指定位置的图形，再单独让它算一个已知图形的面积。最后要求它找到目标并计算面积。分别观察这三种题，就能追查错误出在定位、计算，还是把前一步找到的对象交给下一步使用。',
+    papers: [
+      ['Unveiling the Compositional Ability Gap in Vision-Language Reasoning Model', 'https://papers.neurips.cc/paper_files/paper/2025/hash/b81d5608b42518f8f5b81a71a59509aa-Abstract-Conference.html'],
+      ['Rule-Compliant Visual Spatial Planning for Multimodal Large Language Models', 'https://arxiv.org/abs/2608.20237'],
+      ['Composition-Grounded Data Synthesis for Visual Reasoning', 'https://proceedings.iclr.cc/paper_files/paper/2026/hash/4733cee6af505d5e2782a1dc499c0d7e-Abstract-Conference.html'],
+      ['CompoDistill: Attention Distillation for Compositional Reasoning in Multimodal LLMs', 'https://proceedings.iclr.cc/paper_files/paper/2026/hash/74ee8b8a0b958199b440194fcf938bec-Abstract-Conference.html']
+    ]
+  }
+];
+---
+<div data-topic-body="research/vlm" hidden>
+  <h2>研究方向</h2>
+  <ul class="vlm-directions">
+    {topics.map(topic => <li>
+      <a data-topic-link href={`#research/vlm/${topic.slug}`}>{topic.name}</a>
+      <p>{topic.question}</p>
+    </li>)}
+  </ul>
+</div>
+{topics.map(topic => <article data-topic-body={`research/vlm/${topic.slug}`} hidden>
+  <a class="vlm-back" href="#research/vlm">返回 VLM</a>
+  <p>{topic.question}</p>
+  <p>{topic.note}</p>
+  <h2>相关论文</h2>
+  <ul>{topic.papers.map(([name, url]) => <li><a href={url}>{name}</a></li>)}</ul>
+</article>)}
+<style>
+  [data-topic-body] { margin-top: 20px; max-width: 44rem; line-height: 1.8; overflow-wrap: anywhere; }
+  h2 { margin: 1rem 0 .5rem; font-size: 1.16rem; }
+  ul { margin: 0; padding-inline-start: 1.2rem; }
+  li + li { margin-top: .5rem; }
+  a:hover, a:focus-visible { color: var(--link-blue); }
+  .vlm-directions { list-style: none; padding: 0; }
+  .vlm-directions li { padding: .65rem 0; border-bottom: 1px solid var(--line); }
+  .vlm-directions a { font-weight: 600; }
+  .vlm-directions p { color: var(--sub); margin: .2rem 0 0; }
+  .vlm-back { color: var(--link-blue); font-size: .9rem; }
+  article li a { color: var(--accent); }
+</style>
