@@ -4,23 +4,12 @@ const themeControl = document.querySelector('#theme');
 const courseTree = document.querySelector('#course-tree');
 const courseLinks = Array.from(courseTree.querySelectorAll('li a'));
 const overview = document.querySelector('#course-overview');
-const groups = Array.from(overview.querySelectorAll('details'));
-const fold = document.querySelector('#course-fold');
 const menu = document.querySelector('#course-menu');
 const catalogs = {
   research: { name: 'Research', label: '科研笔记', style: 'research', empty: '研究目录', detail: '尚未添加科研笔记。' },
   projects: { name: 'Projects', label: '项目记录', style: 'project', empty: '项目目录', detail: '尚未添加项目。' }
 };
 
-function updateFoldLabel() {
-  fold.textContent = groups.some(group => group.open) ? '全部收起' : '全部展开';
-}
-
-groups.forEach(group => group.addEventListener('toggle', updateFoldLabel));
-fold.addEventListener('click', () => {
-  const open = !groups.some(group => group.open);
-  groups.forEach(group => { group.open = open; });
-});
 menu.addEventListener('click', () => {
   menu.setAttribute('aria-expanded', String(menu.getAttribute('aria-expanded') !== 'true'));
 });
@@ -32,7 +21,6 @@ function renderCoursePage(course) {
   courseTree.querySelector('[aria-current]')?.removeAttribute('aria-current');
   const active = course || courseTree.querySelector('.overview-link');
   active.setAttribute('aria-current', 'page');
-  if (course) course.closest('details').open = true;
   menu.setAttribute('aria-expanded', 'false');
 }
 

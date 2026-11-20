@@ -10,19 +10,17 @@ const groups = [
 <section class="course-layout frame" id="course-pages" aria-labelledby="course-title" hidden>
   <aside class="course-sidebar">
     <button id="course-menu" aria-expanded="false" aria-controls="course-tree">浏览课程</button>
-    <nav id="course-tree" aria-label="课程分类">
+    <nav id="course-tree" aria-label="课程导航">
       <a class="overview-link" href="#courses">课程目录</a>
-      {groups.map(group => <details>
-        <summary>{group.name}</summary>
-        <ul>{group.courses.map(([id, name]) => <li><a href={`#courses/${id}`}>{name}</a></li>)}</ul>
-      </details>)}
+      <ul>{groups.flatMap(group => group.courses).map(([id, name]) =>
+        <li><a href={`#courses/${id}`}>{name}</a></li>
+      )}</ul>
     </nav>
   </aside>
   <div class="course-document">
     <h1 id="course-title">课程目录</h1>
     <p class="course-term">2026 秋冬学期</p>
     <div id="course-overview">
-      <button id="course-fold" type="button">全部收起</button>
       {groups.map(group => <details open>
         <summary>{group.name}</summary>
         <ul>{group.courses.map(([id, name]) => <li><a href={`#courses/${id}`}>{name}</a></li>)}</ul>

@@ -74,8 +74,7 @@ body:has(#home[hidden]) .mast {
 .course-sidebar nav > a { display: block; margin-bottom: 12px; font-weight: 600; }
 .course-layout summary { cursor: pointer; padding-block: 6px; }
 .course-layout summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.course-sidebar summary { font-size: 1rem; }
-.course-sidebar ul { list-style: none; margin: 2px 0 8px; padding-left: 16px; border-left: 1px solid var(--line); }
+.course-sidebar ul { list-style: none; margin: 0; padding: 0; }
 .course-sidebar nav a { display: block; padding: 5px 10px; border-radius: 4px; line-height: 1.55; }
 .course-sidebar nav a:hover, .course-layout summary:hover { color: var(--accent); }
 .course-sidebar nav a[aria-current] { color: var(--link-blue); }
@@ -83,10 +82,8 @@ body:has(#home[hidden]) .mast {
 .course-layout summary:active { color: var(--key); }
 .course-document h1 { margin: 0; font: 500 clamp(1.55rem,2vw,1.875rem)/1.4 var(--song); }
 .course-term { margin: 14px 0 24px; padding-left: 12px; border-left: 3px solid var(--line); color: var(--sub); }
-#course-fold, #course-menu { background: transparent; color: var(--accent); border: 1px solid var(--line); border-radius: 4px; padding: 7px 12px; font-size: .9rem; }
-:is(#course-fold,#course-menu):is(:hover,:active), #course-menu[aria-expanded="true"] { color: var(--link-blue); border-color: currentColor; }
-#course-menu { display: none; }
-#course-fold { margin-bottom: 14px; }
+#course-menu { display: none; background: transparent; color: var(--accent); border: 1px solid var(--line); border-radius: 4px; padding: 7px 12px; font-size: .9rem; }
+#course-menu:is(:hover,:active), #course-menu[aria-expanded="true"] { color: var(--link-blue); border-color: currentColor; }
 #course-overview summary { font-weight: 600; }
 #course-overview ul { margin: 2px 0 14px; padding-left: 2.4rem; }
 #course-overview li { padding-block: 4px; line-height: 1.6; }
