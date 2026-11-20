@@ -1,4 +1,5 @@
 ---
+import { Content as Survey } from '../notes/vlm-survey.md';
 const topics = [
   {
     slug: 'latent-thinking-interpretability', name: 'Latent Thinking Interpretability',
@@ -37,6 +38,7 @@ const topics = [
 ];
 ---
 <div data-topic-body="research/vlm" hidden>
+  <h2><a data-topic-link href="#research/vlm/survey">VLM Survey</a></h2>
   <h2>研究方向</h2>
   <ul class="vlm-directions">
     {topics.map(topic => <li>
@@ -45,6 +47,10 @@ const topics = [
     </li>)}
   </ul>
 </div>
+<article data-topic-body="research/vlm/survey" hidden>
+  <a class="vlm-back" href="#research/vlm">返回 VLM</a>
+  <div class="survey-text"><Survey /></div>
+</article>
 {topics.map(topic => <article data-topic-body={`research/vlm/${topic.slug}`} hidden>
   <a class="vlm-back" href="#research/vlm">返回 VLM</a>
   <p>{topic.question}</p>
@@ -64,4 +70,8 @@ const topics = [
   .vlm-directions p { color: var(--sub); margin: .2rem 0 0; }
   .vlm-back { color: var(--link-blue); font-size: .9rem; }
   article li a { color: var(--accent); }
+  .survey-text :global(table) { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: .92rem; }
+  .survey-text :global(th), .survey-text :global(td) { padding: .45rem .65rem; border: 1px solid var(--line); min-width: 6em; vertical-align: top; text-align: left; }
+  .survey-text :global(th) { background: var(--wash); }
+  .survey-text :global(a) { color: var(--link-blue); }
 </style>
